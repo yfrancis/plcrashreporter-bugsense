@@ -1,10 +1,12 @@
 # Using the BugSense iOS library
 
+
 ## Installing the BugSense library for iOS
 
 * Download the `BugSense-iOS.framework.zip` file, and unzip it. 
 * In Xcode, select the target that you want to use and, in the "Build Phases" tab expand the "Link Binary With Libraries" section. Press the "+" button, and then press "Add Other...". In the dialog box that appears, go to the framework's location and select it. 
 * The framework will appear at the top of the "Link Binary With Libraries" section and will also be added to your project files (left-hand pane). 
+
 
 ## Configuring your project
 

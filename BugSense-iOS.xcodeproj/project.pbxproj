@@ -22,6 +22,21 @@
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 		05B0BF9014487F8A00ECFF3F /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */; };
 		05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
+		05FCB7441492A3F800D1B469 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
+		05FCB7451492A3F800D1B469 /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */; };
+		05FCB7461492A3F800D1B469 /* BSAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C15143BC2D6002A01CA /* BSAFHTTPRequestOperation.m */; };
+		05FCB7471492A3F800D1B469 /* BSAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C19143BC2D6002A01CA /* BSAFImageRequestOperation.m */; };
+		05FCB7481492A3F800D1B469 /* BSAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1B143BC2D6002A01CA /* BSAFJSONRequestOperation.m */; };
+		05FCB7491492A3F800D1B469 /* BSAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1D143BC2D6002A01CA /* BSAFNetworkActivityIndicatorManager.m */; };
+		05FCB74A1492A3F800D1B469 /* NSMutableURLRequest+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C23143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m */; };
+		05FCB74B1492A3F800D1B469 /* NSString+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C25143BC2D6002A01CA /* NSString+AFNetworking.m */; };
+		05FCB74C1492A3F800D1B469 /* UIImage+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C27143BC2D6002A01CA /* UIImage+AFNetworking.m */; };
+		05FCB74D1492A3F800D1B469 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C29143BC2D6002A01CA /* UIImageView+AFNetworking.m */; };
+		05FCB74E1492A3F800D1B469 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2C143BC2D6002A01CA /* JSONKit.m */; };
+		05FCB74F1492A3F800D1B469 /* BSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2F143BC2D6002A01CA /* BSReachability.m */; };
+		05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
+		05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +138,13 @@
 			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
 			remoteInfo = "CrashReporter-iOS-Device";
 		};
+		05FCB7411492A34C00D1B469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
+			remoteInfo = "CrashReporter-iOS-Device";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +180,7 @@
 		05D8D75C1455972300D1218E /* How to work with BugSense.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "How to work with BugSense.md"; sourceTree = "<group>"; };
 		05D8D75D1455972300D1218E /* Using the BugSense iOS library.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Using the BugSense iOS library.md"; sourceTree = "<group>"; };
 		05D8D7601455972C00D1218E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		05FCB73514929FE500D1B469 /* libBugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libBugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +189,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05FCB73214929FE500D1B469 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */,
+				05FCB73514929FE500D1B469 /* libBugSense-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,6 +338,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05FCB73314929FE500D1B469 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -329,6 +369,25 @@
 			productName = "BugSense-iOS-Universal";
 			productReference = 05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */;
 			productType = "com.apple.product-type.framework.static";
+		};
+		05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05FCB73E14929FE500D1B469 /* Build configuration list for PBXNativeTarget "BugSense-iOS Static Library" */;
+			buildPhases = (
+				05FCB73114929FE500D1B469 /* Sources */,
+				05FCB73214929FE500D1B469 /* Frameworks */,
+				05FCB73314929FE500D1B469 /* Headers */,
+				05FCB7521492A44D00D1B469 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05FCB7421492A34C00D1B469 /* PBXTargetDependency */,
+			);
+			name = "BugSense-iOS Static Library";
+			productName = "BugSense-iOS Static Library for MonoTouch";
+			productReference = 05FCB73514929FE500D1B469 /* libBugSense-iOS.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -357,6 +416,7 @@
 			projectRoot = "";
 			targets = (
 				05086E6C143BB8AB008A8411 /* BugSense-iOS */,
+				05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */,
 			);
 		};
 /* End PBXProject section */
@@ -464,6 +524,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05FCB7521492A44D00D1B469 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -515,6 +583,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05FCB73114929FE500D1B469 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FCB7441492A3F800D1B469 /* BugSenseCrashController.m in Sources */,
+				05FCB7451492A3F800D1B469 /* BSAFRestClient.m in Sources */,
+				05FCB7461492A3F800D1B469 /* BSAFHTTPRequestOperation.m in Sources */,
+				05FCB7471492A3F800D1B469 /* BSAFImageRequestOperation.m in Sources */,
+				05FCB7481492A3F800D1B469 /* BSAFJSONRequestOperation.m in Sources */,
+				05FCB7491492A3F800D1B469 /* BSAFNetworkActivityIndicatorManager.m in Sources */,
+				05FCB74A1492A3F800D1B469 /* NSMutableURLRequest+AFNetworking.m in Sources */,
+				05FCB74B1492A3F800D1B469 /* NSString+AFNetworking.m in Sources */,
+				05FCB74C1492A3F800D1B469 /* UIImage+AFNetworking.m in Sources */,
+				05FCB74D1492A3F800D1B469 /* UIImageView+AFNetworking.m in Sources */,
+				05FCB74E1492A3F800D1B469 /* JSONKit.m in Sources */,
+				05FCB74F1492A3F800D1B469 /* BSReachability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -522,6 +609,11 @@
 			isa = PBXTargetDependency;
 			name = "CrashReporter-iOS-Device";
 			targetProxy = 05F985F514476EEA00D65AC0 /* PBXContainerItemProxy */;
+		};
+		05FCB7421492A34C00D1B469 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CrashReporter-iOS-Device";
+			targetProxy = 05FCB7411492A34C00D1B469 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -687,6 +779,79 @@
 			};
 			name = Release;
 		};
+		05FCB73F14929FE500D1B469 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				DSTROOT = /tmp/BugSense_iOS_Static_Library_for_MonoTouch.dst;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Supporting Files\"",
+					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_CFLAGS = "-mno-thumb";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "BugSense-iOS";
+				SEPARATE_STRIP = NO;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		05FCB74014929FE500D1B469 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/BugSense_iOS_Static_Library_for_MonoTouch.dst;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Supporting Files\"",
+					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_CFLAGS = "-mno-thumb";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "BugSense-iOS";
+				SEPARATE_STRIP = NO;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -704,6 +869,15 @@
 			buildConfigurations = (
 				05D58BBB142CC4A400BEE267 /* Debug */,
 				05D58BBC142CC4A400BEE267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05FCB73E14929FE500D1B469 /* Build configuration list for PBXNativeTarget "BugSense-iOS Static Library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05FCB73F14929FE500D1B469 /* Debug */,
+				05FCB74014929FE500D1B469 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
