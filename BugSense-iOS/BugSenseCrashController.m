@@ -30,13 +30,17 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
+#include <dlfcn.h>
+#include <execinfo.h>
 
 #import "BugSenseCrashController.h"
 
-#include <ifaddrs.h>
-#include <arpa/inet.h>
+#import <objc/runtime.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "CrashReporter.h"
 #import "PLCrashReportTextFormatter.h"
@@ -44,25 +48,19 @@
 #import "BSReachability.h"
 #import "BSAFHTTPRequestOperation.h"
 #import "NSMutableURLRequest+AFNetworking.h"
-#import <objc/runtime.h>
 
-#import <CoreLocation/CoreLocation.h>
+#define BUGSENSE_REPORTING_SERVICE_URL  @"http://www.bugsense.com/api/errors"
+#define BUGSENSE_HEADER                 @"X-BugSense-Api-Key"
 
-#include <dlfcn.h>
-#include <execinfo.h>
-#include <sys/utsname.h>
+@interface BugSenseCrashController (PrivateMethods)
 
-#define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
-#define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
-
-@interface BugSenseCrashController (Private)
+- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
+       userDictionary:(NSDictionary *)userDictionary 
+      sendImmediately:(BOOL)immediately;
 
 void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 - (void) processCrashReportImmediately;
 - (NSString *) ipAddress;
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
-       userDictionary:(NSDictionary *)userDictionary 
-      sendImmediately:(BOOL)immediately;
 - (void) initiateReportingProcess;
 - (void) processCrashReport;
 - (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report;
@@ -76,14 +74,37 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 
 
 @implementation BugSenseCrashController {
-    NSString *_APIKey;
-    NSDictionary *_userDictionary;
-    BOOL _immediately;
-    
-    BOOL _operationCompleted;
+    NSString        *_APIKey;
+    NSDictionary    *_userDictionary;
+    BOOL            _immediately;
+    BOOL            _operationCompleted;
 }
 
 static BugSenseCrashController *sharedCrashController = nil;
+
+#pragma mark - Initializer
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
+       userDictionary:(NSDictionary *)userDictionary 
+      sendImmediately:(BOOL)immediately {
+    if ((self = [super init])) {
+        _operationCompleted = NO;
+        
+        if (bugSenseAPIKey) {
+            _APIKey = [bugSenseAPIKey retain];
+        }
+        
+        if (userDictionary && userDictionary.count > 0) {
+            _userDictionary = [userDictionary retain];
+        } else {
+            _userDictionary = nil;
+        }
+        
+        _immediately = immediately;
+    }
+    return self;
+}
+
 
 #pragma mark - Crash callback function
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +177,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 }
 
 
-#pragma mark - Singleton constructors
+#pragma mark - Singleton factory methods
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
     if (!sharedCrashController) {
@@ -199,30 +220,6 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     [sharedCrashController initiateReportingProcess];
     
     return sharedCrashController;
-}
-
-
-#pragma mark - Initializer
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
-       userDictionary:(NSDictionary *)userDictionary 
-      sendImmediately:(BOOL)immediately {
-    if ((self = [super init])) {
-        _operationCompleted = NO;
-        
-        if (bugSenseAPIKey) {
-            _APIKey = [bugSenseAPIKey retain];
-        }
-        
-        if (userDictionary && userDictionary.count > 0) {
-            _userDictionary = [userDictionary retain];
-        } else {
-            _userDictionary = nil;
-        }
-        
-        _immediately = immediately;
-    }
-    return self;
 }
 
 
