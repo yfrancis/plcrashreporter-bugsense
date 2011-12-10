@@ -134,6 +134,7 @@ Pre-mortem example:
 
 BugSense will report both pairs.
 
+
 ## How BugSense works
 
 ### Debugger
@@ -165,3 +166,13 @@ BugSense prints out some messages on the Console. You will typically see things 
 	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Posting JSON data...
 	Oct 18 17:49:24 unknown BugSenseDemo[176] <Warning>: BugSense --> Server responded with status code: 200
 	
+
+### Atypicality of BugSense factory methods
+
+Typically, a factory method returns an autoreleased object, which means that clients have to retain it in order to use it beyond that particular program scope. As BugSense is meant to be used during the full lifetime of an application, the shared object is not autoreleased. This provides some insurance that the shared controller will not be 'easily' deallocated.
+
+The "shared" prefix indicates that the controller is a singleton. This is not actually enforced at the moment, but rather indicates how the controller should be used. This will change in an upcoming revision.
+
+Additionally, to provide for some compatibility with the previous version of the framework, we kept the "sharedInstance..." naming convention, which goes again the norm of having factory methods return the type name minus the prefix ("sharedController...").
+
+The "controller" part of the factory method comes from the notion that the framework is part of a wider/distributed MVC system, where the application itself stands as the model, the BugSense dashboard is the view, and the framework is the controller (the mediator between the app and the dashboard). This framework communicates in one-way only, but that will quite likely change in the near future.
