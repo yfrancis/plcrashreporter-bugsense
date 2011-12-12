@@ -37,6 +37,8 @@
 		05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 		05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
+		05FCB7DC14966D6D00D1B469 /* BugSenseSymbolicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */; };
+		05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +183,8 @@
 		05D8D75D1455972300D1218E /* Using the BugSense iOS library.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Using the BugSense iOS library.md"; sourceTree = "<group>"; };
 		05D8D7601455972C00D1218E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		05FCB73514929FE500D1B469 /* libBugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libBugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseSymbolicator.h; path = "BugSense-iOS/BugSenseSymbolicator.h"; sourceTree = SOURCE_ROOT; };
+		05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseSymbolicator.m; path = "BugSense-iOS/BugSenseSymbolicator.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +212,8 @@
 			children = (
 				05086E92143BBFC6008A8411 /* BugSenseCrashController.h */,
 				05086E93143BBFC6008A8411 /* BugSenseCrashController.m */,
+				05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */,
+				05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */,
 				058D4C12143BC2D6002A01CA /* Supporting Files */,
 			);
 			name = "BugSense-iOS";
@@ -335,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */,
+				05FCB7DC14966D6D00D1B469 /* BugSenseSymbolicator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +587,7 @@
 				058D4C47143BC2D6002A01CA /* JSONKit.m in Sources */,
 				058D4C49143BC2D6002A01CA /* BSReachability.m in Sources */,
 				05B0BF9014487F8A00ECFF3F /* BSAFRestClient.m in Sources */,
+				05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
