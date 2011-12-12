@@ -1,4 +1,5 @@
 /*
+ 
  BugSenseSymbolicator.h
  BugSense-iOS
  

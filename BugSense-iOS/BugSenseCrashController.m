@@ -1,4 +1,5 @@
 /*
+ 
  BugSenseCrashController.m
  BugSense-iOS
  
@@ -52,20 +53,32 @@
 #define BUGSENSE_REPORTING_SERVICE_URL  @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                 @"X-BugSense-Api-Key"
 
-@interface BugSenseCrashController (PrivateMethods)
+#define kLoadErrorString                @"BugSense --> Error: Could not load crash report data due to: %@"
+#define kParseErrorString               @"BugSense --> Error: Could not parse crash report due to: %@"
+#define kJSONErrorString                @"BugSense --> Could not prepare JSON crash report string."
+#define kWarningString                  @"BugSense --> Warning: %@"
+#define kProcessingMsgString            @"BugSense --> Processing crash report..."
+#define kCrashMsgString                 @"BugSense --> Crashed on %@, with signal %@ (code %@, address=0x%" PRIx64 ")"
+
+
+#pragma mark - Private interface
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@interface BugSenseCrashController (Private)
+
+- (PLCrashReporter *) crashReporter;
+- (PLCrashReport *) crashReport;
+- (NSString *) currentIPAddress;
 
 void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 - (void) performPostCrashOperations;
-- (void) processCrashReportImmediately;
-- (void) processSymbolsImmediately;
 
 - (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
        userDictionary:(NSDictionary *)userDictionary 
       sendImmediately:(BOOL)immediately;
 
-- (NSString *) ipAddress;
-- (void) initiateReportingProcess;
+- (void) retainSymbols;
 - (void) processCrashReport;
+- (void) initiateReportingProcess;
 - (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report;
 - (BOOL) postJSONData:(NSData *)jsonData;
 - (void) observeValueForKeyPath:(NSString *)keyPath 
@@ -76,157 +89,67 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 @end
 
 
+#pragma mark - Implementation
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation BugSenseCrashController {
     NSString        *_APIKey;
     NSDictionary    *_userDictionary;
     BOOL            _immediately;
     BOOL            _operationCompleted;
+    
+    PLCrashReporter *_crashReporter;
+    PLCrashReport   *_crashReport;
 }
 
-static BugSenseCrashController *sharedCrashController = nil;
+static BugSenseCrashController *_sharedCrashController = nil;
 
-#pragma mark - Crash callback function
+#pragma mark - Common methods
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
-    // This is not async-safe!!! Beware!!!
-    /*if ([[PLCrashReporter sharedReporter] hasPendingCrashReport]) {
-        [sharedCrashController performSelectorOnMainThread:@selector(processCrashReportImmediately) 
-                                                withObject:nil 
-                                             waitUntilDone:YES];
-    }*/
-    
-    [sharedCrashController performSelectorOnMainThread:@selector(performPostCrashOperations) 
-                                            withObject:nil 
-                                         waitUntilDone:YES];
-}
-
-
-#pragma mark - Crash callback methods
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) processSymbolsImmediately {
-    PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-    NSError *error = nil;
-    
-    // Try loading the crash report
-    NSData *crashData = [crashReporter loadPendingCrashReportDataAndReturnError:&error];
-    if (!crashData) {
-        NSLog(@"BugSense --> Error: Could not load crash report data due to: %@", error);
-        [crashReporter purgePendingCrashReport];
-        return;
-    } else {
-        if (error != nil) {
-            NSLog(@"BugSense --> Warning: %@", error);
-        }
+- (PLCrashReporter *) crashReporter {
+    if (!_crashReporter) {
+        _crashReporter = [PLCrashReporter sharedReporter];
     }
-    
-    // We could send the report from here, but we'll just print out
-    // some debugging info instead
-    PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
-    if (!report) {
-        NSLog(@"BugSense --> Error: Could not parse crash report due to: %@", error);
-        [crashReporter purgePendingCrashReport];
-        return;
-    } else {
-        if (error != nil) {
-            NSLog(@"BugSense --> Warning: %@", error);
-        }
-    }
-    
-    PLCrashReportThreadInfo *crashedThreadInfo = nil;
-    for (PLCrashReportThreadInfo *threadInfo in report.threads) {
-        if (threadInfo.crashed) {
-            crashedThreadInfo = threadInfo;
-            break;
-        }
-    }
-    
-    if (!crashedThreadInfo) {
-        if (report.threads.count > 0) {
-            crashedThreadInfo = [report.threads objectAtIndex:0];
-        }
-    }
-    
-    if (report.hasExceptionInfo) {
-        PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
-        [BugSenseSymbolicator retainSymbolsForStackFrames:exceptionInfo.stackFrames inReport:report];
-    } else {
-        [BugSenseSymbolicator retainSymbolsForStackFrames:crashedThreadInfo.stackFrames inReport:report];
-    }
+    return _crashReporter;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) processCrashReportImmediately {
-    if (_immediately && [[PLCrashReporter sharedReporter] hasPendingCrashReport]) {
-        [self processCrashReport];
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) performPostCrashOperations {
-    /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self processSymbolsImmediately];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self processCrashReportImmediately];
-        });
-    });*/
-    
-    [self performSelector:@selector(processSymbolsImmediately) withObject:nil];
-    [self performSelector:@selector(processCrashReportImmediately) withObject:nil];
-    
-    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
-	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
-	
-	while (!_operationCompleted) {
-		for (NSString *mode in (NSArray *)allModes) {
-			CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);
-		}
-	}
-	
-	CFRelease(allModes);
-    
-	NSSetUncaughtExceptionHandler(NULL);
-	signal(SIGABRT, SIG_DFL);
-	signal(SIGILL, SIG_DFL);
-	signal(SIGSEGV, SIG_DFL);
-	signal(SIGFPE, SIG_DFL);
-	signal(SIGBUS, SIG_DFL);
-	signal(SIGPIPE, SIG_DFL);
-    
-    NSLog(@"BugSense --> Immediate dispatch completed!");
-    
-    abort();
-}
-
-
-#pragma mark - Initializer
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
-       userDictionary:(NSDictionary *)userDictionary 
-      sendImmediately:(BOOL)immediately {
-    if ((self = [super init])) {
-        _operationCompleted = NO;
+- (PLCrashReport *) crashReport {
+    if (!_crashReport) {
+        NSError *error = nil;
         
-        if (bugSenseAPIKey) {
-            _APIKey = [bugSenseAPIKey retain];
-        }
-        
-        if (userDictionary && userDictionary.count > 0) {
-            _userDictionary = [userDictionary retain];
+        NSData *crashData = [[self crashReporter] loadPendingCrashReportDataAndReturnError:&error];
+        if (!crashData) {
+            NSLog(kLoadErrorString, error);
+            [[self crashReporter] purgePendingCrashReport];
+            return nil;
         } else {
-            _userDictionary = nil;
+            if (error != nil) {
+                NSLog(kWarningString, error);
+            }
         }
         
-        _immediately = immediately;
+        _crashReport = [[PLCrashReport alloc] initWithData:crashData error:&error];
+        if (!_crashReport) {
+            NSLog(kParseErrorString, error);
+            [[self crashReporter] purgePendingCrashReport];
+            return nil;
+        } else {
+            if (error != nil) {
+                NSLog(kWarningString, error);
+            }
+            return _crashReport;
+        }
+    } else {
+        return _crashReport;
     }
-    return self;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (NSString *) ipAddress {
-    NSString *address = @"Error.";
+- (NSString *) currentIPAddress {
+    NSString *address = @"Could not be found";
+    
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;
@@ -253,127 +176,228 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 }
 
 
-#pragma mark - Singleton factory methods
+#pragma mark - Crash callback function
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
-    if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
-                                                                 userDictionary:nil
-                                                                sendImmediately:NO];
-    }
+void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
+    [_sharedCrashController performSelectorOnMainThread:@selector(performPostCrashOperations) 
+                                             withObject:nil 
+                                          waitUntilDone:YES];
+}
 
-    [sharedCrashController initiateReportingProcess];
+
+#pragma mark - Crash callback method
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) performPostCrashOperations {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [self retainSymbols];
+    });
     
-    return sharedCrashController;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        if (_immediately && [[self crashReporter] hasPendingCrashReport]) {
+            [self processCrashReport];
+        }
+    });
+    
+    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
+	
+	while (!_operationCompleted) {
+		for (NSString *mode in (NSArray *)allModes) {
+			CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);
+		}
+	}
+	
+	CFRelease(allModes);
+    
+	NSSetUncaughtExceptionHandler(NULL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGILL, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGFPE, SIG_DFL);
+	signal(SIGBUS, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
+    
+    NSLog(@"BugSense --> Immediate dispatch completed!");
+    
+    abort();
+}
+
+
+#pragma mark - Object lifecycle
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
+                                                userDictionary:(NSDictionary *)userDictionary
+                                               sendImmediately:(BOOL)immediately {
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        if (!_sharedCrashController) {
+            [[self alloc] initWithAPIKey:bugSenseAPIKey userDictionary:userDictionary sendImmediately:immediately];
+            [_sharedCrashController initiateReportingProcess];
+        }
+    });
+    
+    return _sharedCrashController;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
                                                 userDictionary:(NSDictionary *)userDictionary {
-    if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
-                                                                 userDictionary:userDictionary
-                                                                sendImmediately:NO];
-	}
-    
-    [sharedCrashController initiateReportingProcess];
-
-    return sharedCrashController;
+    return [self sharedInstanceWithBugSenseAPIKey:bugSenseAPIKey userDictionary:userDictionary sendImmediately:NO];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
-                                                userDictionary:(NSDictionary *)userDictionary
-                                               sendImmediately:(BOOL)immediately {
-    if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
-                                                                 userDictionary:userDictionary
-                                                                sendImmediately:immediately];
++ (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
+    return [self sharedInstanceWithBugSenseAPIKey:bugSenseAPIKey userDictionary:nil];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
+       userDictionary:(NSDictionary *)userDictionary 
+      sendImmediately:(BOOL)immediately {
+    if ((self = [super init])) {
+        _operationCompleted = NO;
+        
+        if (bugSenseAPIKey) {
+            _APIKey = [bugSenseAPIKey retain];
+        }
+        
+        if (userDictionary && userDictionary.count > 0) {
+            _userDictionary = [userDictionary retain];
+        } else {
+            _userDictionary = nil;
+        }
+        
+        _immediately = immediately;
+    }
+    return self;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (id) allocWithZone:(NSZone *)zone {
+    @synchronized(self) {
+        if (!_sharedCrashController) {
+            _sharedCrashController = [super allocWithZone:zone];
+            return _sharedCrashController;  // assignment and return on first allocation
+        }
+    }
+    return nil; //on subsequent allocation attempts return nil
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (id) copyWithZone:(NSZone *)zone {
+    return self;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (id) retain { 
+    return self; 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (oneway void) release {
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (id) autorelease { 
+    return self; 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSUInteger) retainCount { 
+    return NSUIntegerMax; 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) dealloc {
+    [_APIKey release];
+    [_userDictionary release];
+    [_crashReporter release];
+    [_crashReport release];
+    
+    [super dealloc];
+}
+
+
+#pragma mark - Process methods
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) retainSymbols {
+    PLCrashReportThreadInfo *crashedThreadInfo = nil;
+    for (PLCrashReportThreadInfo *threadInfo in [self crashReport].threads) {
+        if (threadInfo.crashed) {
+            crashedThreadInfo = threadInfo;
+            break;
+        }
     }
     
-    [sharedCrashController initiateReportingProcess];
-    
-    return sharedCrashController;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) initiateReportingProcess {
-    PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-    NSError *error = nil;
-    
-    //if (_immediately) {
-        PLCrashReporterCallbacks cb = {
-            .version = 0,
-            .context = (void *) 0xABABABAB,
-            .handleSignal = post_crash_callback
-        };
-        [crashReporter setCrashCallbacks:&cb];
-    //} else {
-        if ([crashReporter hasPendingCrashReport]) {
-            [self processCrashReport];
+    if (!crashedThreadInfo) {
+        if ([self crashReport].threads.count > 0) {
+            crashedThreadInfo = [[self crashReport].threads objectAtIndex:0];
         }
-    //}
+    }
     
-    if (![crashReporter enableCrashReporterAndReturnError:&error]) {
-        NSLog(@"BugSense --> Error: Could not enable crash reporterd due to: %@", error);
+    if ([self crashReport].hasExceptionInfo) {
+        PLCrashReportExceptionInfo *exceptionInfo = [self crashReport].exceptionInfo;
+        [BugSenseSymbolicator retainSymbolsForStackFrames:exceptionInfo.stackFrames inReport:[self crashReport]];
     } else {
-        if (error != nil) {
-            NSLog(@"BugSense --> Warning: %@", error);
-        }
+        [BugSenseSymbolicator retainSymbolsForStackFrames:crashedThreadInfo.stackFrames inReport:[self crashReport]];
     }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) processCrashReport {
-    NSLog(@"BugSense --> Processing crash report...");
+    NSLog(kProcessingMsgString);
     
-    PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-    NSError *error = nil;
-    
-    // Try loading the crash report
-    NSData *crashData = [crashReporter loadPendingCrashReportDataAndReturnError:&error];
-    if (!crashData) {
-        NSLog(@"BugSense --> Error: Could not load crash report data due to: %@", error);
-        [crashReporter purgePendingCrashReport];
-        return;
-    } else {
-        if (error != nil) {
-            NSLog(@"BugSense --> Warning: %@", error);
-        }
-    }
-    
-    // We could send the report from here, but we'll just print out
-    // some debugging info instead
-    PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
-    if (!report) {
-        NSLog(@"BugSense --> Error: Could not parse crash report due to: %@", error);
-        [crashReporter purgePendingCrashReport];
-        return;
-    } else {
-        if (error != nil) {
-            NSLog(@"BugSense --> Warning: %@", error);
-        }
-    }
-    
-    // Generic status report on console
-    NSLog(@"BugSense --> Crashed on %@", report.systemInfo.timestamp);
-    NSLog(@"BugSense --> Crashed with signal %@ (code %@, address=0x%" PRIx64 ")", 
-          report.signalInfo.name, report.signalInfo.code, report.signalInfo.address);
+    NSLog(kCrashMsgString, [self crashReport].systemInfo.timestamp, [self crashReport].signalInfo.name, 
+          [self crashReport].signalInfo.code, [self crashReport].signalInfo.address);
     
     // Preparing the JSON string
-    NSData *jsonData = [self JSONDataFromCrashReport:report];
-    [report release];
+    NSData *jsonData = [self JSONDataFromCrashReport:[self crashReport]];
     if (!jsonData) {
-        NSLog(@"BugSense --> Could not prepare JSON crash report string.");
+        NSLog(kJSONErrorString);
         return;
     }
     
     // Send the JSON string to the BugSense servers
     [self postJSONData:jsonData];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) initiateReportingProcess {
+    NSError *error = nil;
+    
+    PLCrashReporterCallbacks cb = {
+        .version = 0,
+        .context = (void *) 0xABABABAB,
+        .handleSignal = post_crash_callback
+    };
+    [[self crashReporter] setCrashCallbacks:&cb];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        if ([[self crashReporter] hasPendingCrashReport]) {
+            [self processCrashReport];
+        }
+    });
+    
+    if (![[self crashReporter] enableCrashReporterAndReturnError:&error]) {
+        NSLog(@"BugSense --> Error: Could not enable crash reporterd due to: %@", error);
+    } else {
+        if (error != nil) {
+            NSLog(kWarningString, error);
+        }
+    }
 }
 
 
@@ -590,7 +614,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
     
         // ----remote_ip
-        [request setObject:[self ipAddress] forKey:@"remote_ip"];
+        [request setObject:[self currentIPAddress] forKey:@"remote_ip"];
         if (_userDictionary) {
             [request setObject:_userDictionary forKey:@"custom_data"];
         }
@@ -641,8 +665,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                         BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
                                                      containsIndex:[response statusCode]];
                         if (statusCodeAcceptable) {
-                            PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-                            [crashReporter purgePendingCrashReport];
+                            [[self crashReporter] purgePendingCrashReport];
                             [BugSenseSymbolicator clearSymbols];
                         }
                     }
@@ -675,23 +698,13 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
             BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
                                          containsIndex:[operation.response statusCode]];
             if (statusCodeAcceptable) {
-                PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-                [crashReporter purgePendingCrashReport];
+                [[self crashReporter] purgePendingCrashReport];
                 [BugSenseSymbolicator clearSymbols];
             }
         }
         
         _operationCompleted = YES;
     }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) dealloc {
-    [_APIKey release];
-    [_userDictionary release];
-    
-    [super dealloc];
 }
 
 @end

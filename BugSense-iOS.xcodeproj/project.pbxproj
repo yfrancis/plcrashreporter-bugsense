@@ -669,7 +669,7 @@
 					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -727,7 +727,7 @@
 					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
