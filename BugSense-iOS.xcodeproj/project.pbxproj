@@ -638,6 +638,8 @@
 					armv7,
 				);
 				BUILD_VARIANTS = normal;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -652,6 +654,7 @@
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = "";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Supporting Files\"",
@@ -660,6 +663,7 @@
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				KEEP_PRIVATE_EXTERNS = NO;
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -675,6 +679,10 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "i386 armv6 armv7";
+				WARNING_CFLAGS = (
+					"-Wconditional-uninitialized",
+					"-Wincompatible-pointer-types",
+				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -688,6 +696,8 @@
 					armv7,
 				);
 				BUILD_VARIANTS = normal;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -702,6 +712,7 @@
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = "";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Supporting Files\"",
@@ -710,6 +721,7 @@
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				KEEP_PRIVATE_EXTERNS = NO;
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -724,6 +736,10 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "i386 armv6 armv7";
+				WARNING_CFLAGS = (
+					"-Wconditional-uninitialized",
+					"-Wincompatible-pointer-types",
+				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -795,6 +811,7 @@
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Supporting Files\"",
@@ -832,6 +849,7 @@
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Supporting Files\"",

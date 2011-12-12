@@ -601,4 +601,13 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     }
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) dealloc {
+    [_APIKey release];
+    [_userDictionary release];
+    
+    [super dealloc];
+}
+
 @end
