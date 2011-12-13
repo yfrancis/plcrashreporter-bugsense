@@ -20,11 +20,11 @@
 		058D4C47143BC2D6002A01CA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2C143BC2D6002A01CA /* JSONKit.m */; };
 		058D4C49143BC2D6002A01CA /* BSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2F143BC2D6002A01CA /* BSReachability.m */; };
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
+		059964F51497F3FC008157E9 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
 		05B0BF9014487F8A00ECFF3F /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */; };
 		05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
 		05B4E6331497A01200D3EE63 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 		05B4E6341497A01200D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
-		05B4E6371497A44F00D3EE63 /* BugSenseDataDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */; };
 		05B4E6381497A44F00D3EE63 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
 		05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 		05FCB7441492A3F800D1B469 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
@@ -353,7 +353,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */,
-				05B4E6371497A44F00D3EE63 /* BugSenseDataDispatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +608,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				059964F51497F3FC008157E9 /* BugSenseDataDispatcher.m in Sources */,
 				05B4E6331497A01200D3EE63 /* BugSenseSymbolicator.m in Sources */,
 				05B4E6341497A01200D3EE63 /* BugSenseJSONGenerator.m in Sources */,
 				05FCB7441492A3F800D1B469 /* BugSenseCrashController.m in Sources */,
@@ -749,7 +749,7 @@
 					armv6,
 				);
 				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/BugSense_iOS_Static_Library_for_MonoTouch.dst;
+				DSTROOT = /tmp/BugSense_iOS_Static_Library.dst;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -764,7 +764,7 @@
 					"\"$(SRCROOT)/Supporting Files\"",
 					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-mno-thumb";
 				OTHER_LDFLAGS = (
 					"-all_load",

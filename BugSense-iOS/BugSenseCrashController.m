@@ -165,11 +165,11 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) performPostCrashOperations {    
     if (_immediately) {
-        dispatch_async(dispatch_get_current_queue(), ^{
+        //dispatch_async(dispatch_get_current_queue(), ^{
             if ([[self crashReporter] hasPendingCrashReport]) {
                 [self processCrashReport:[self crashReport]];
             }
-        });
+        //});
         
         CFRunLoopRef runLoop = CFRunLoopGetCurrent();
         CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
