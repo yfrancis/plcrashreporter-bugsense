@@ -1,6 +1,6 @@
 # BugSense for iOS
 
-*Latest*: Provides accurate program counter offset for each line in the stacktrace. General improvements. Bug fixes for possible misreportings.
+*Latest updates*: Works for iOS 4.0+. Provides accurate program counter offset for each line in the stacktrace. Bug fixes for possible misreportings. Improvements across the board.
 
 *Issues*: https://github.com/bugsense/plcrashreporter-bugsense/issues 
 

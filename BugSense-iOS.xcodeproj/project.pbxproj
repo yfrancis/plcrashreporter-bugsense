@@ -37,7 +37,6 @@
 		05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 		05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
-		05FCB7DC14966D6D00D1B469 /* BugSenseSymbolicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */; };
 		05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 /* End PBXBuildFile section */
 
@@ -341,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */,
-				05FCB7DC14966D6D00D1B469 /* BugSenseSymbolicator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,64 +636,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		05086E77143BB8AD008A8411 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
-				BUILD_VARIANTS = normal;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = "";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/Supporting Files\"",
-					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
-				);
-				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				KEEP_PRIVATE_EXTERNS = NO;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRELINK_LIBS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SEPARATE_STRIP = NO;
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = all;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "i386 armv6 armv7";
-				WARNING_CFLAGS = (
-					"-Wconditional-uninitialized",
-					"-Wincompatible-pointer-types",
-				);
-				WARNING_LDFLAGS = "";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
 		05086E78143BB8AD008A8411 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -704,13 +644,15 @@
 					armv7,
 				);
 				BUILD_VARIANTS = normal;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -721,6 +663,8 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Supporting Files\"",
@@ -729,18 +673,16 @@
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				KEEP_PRIVATE_EXTERNS = NO;
+				LLVM_LTO = YES;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "";
 				PRELINK_LIBS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				RUN_CLANG_STATIC_ANALYZER = NO;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SEPARATE_STRIP = NO;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = all;
+				STRIP_STYLE = debugging;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "i386 armv6 armv7";
@@ -753,92 +695,33 @@
 			};
 			name = Release;
 		};
-		05D58BBB142CC4A400BEE267 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv6,
-				);
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				SDKROOT = iphoneos;
-				VALID_ARCHS = "i386 ppc armv7 armv6 x86_64";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
 		05D58BBC142CC4A400BEE267 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					armv7,
 					armv6,
+					armv7,
 				);
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "i386 ppc armv7 armv6 x86_64";
+				VALID_ARCHS = "i386 armv6 armv7";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
-		};
-		05FCB73F14929FE500D1B469 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv6,
-				);
-				DSTROOT = /tmp/BugSense_iOS_Static_Library_for_MonoTouch.dst;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/Supporting Files\"",
-					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_CFLAGS = "-mno-thumb";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "BugSense-iOS";
-				SEPARATE_STRIP = NO;
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = all;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
 		};
 		05FCB74014929FE500D1B469 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -884,7 +767,6 @@
 		05086E76143BB8AD008A8411 /* Build configuration list for PBXNativeTarget "BugSense-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				05086E77143BB8AD008A8411 /* Debug */,
 				05086E78143BB8AD008A8411 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -893,7 +775,6 @@
 		05D58BAA142CC4A400BEE267 /* Build configuration list for PBXProject "BugSense-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				05D58BBB142CC4A400BEE267 /* Debug */,
 				05D58BBC142CC4A400BEE267 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -902,7 +783,6 @@
 		05FCB73E14929FE500D1B469 /* Build configuration list for PBXNativeTarget "BugSense-iOS Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				05FCB73F14929FE500D1B469 /* Debug */,
 				05FCB74014929FE500D1B469 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

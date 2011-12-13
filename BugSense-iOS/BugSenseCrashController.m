@@ -95,13 +95,15 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 #pragma mark - Implementation
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation BugSenseCrashController {
-    NSString        *_APIKey;
-    NSDictionary    *_userDictionary;
-    BOOL            _immediately;
-    BOOL            _operationCompleted;
+    dispatch_queue_t    postCrashOperationsQueue; 
     
-    PLCrashReporter *_crashReporter;
-    PLCrashReport   *_crashReport;
+    NSString            *_APIKey;
+    NSDictionary        *_userDictionary;
+    BOOL                _immediately;
+    BOOL                _operationCompleted;
+    
+    PLCrashReporter     *_crashReporter;
+    PLCrashReport       *_crashReport;
 }
 
 static BugSenseCrashController *_sharedCrashController = nil;
@@ -296,11 +298,15 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 #pragma mark - Crash callback method
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) performPostCrashOperations {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    if (!postCrashOperationsQueue) {
+        postCrashOperationsQueue = dispatch_queue_create("com.bugsense.postCrashOperations", NULL);
+    }
+    
+    dispatch_async(postCrashOperationsQueue, ^{
         [self retainSymbols];
     });
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(postCrashOperationsQueue, ^{
         if (_immediately && [[self crashReporter] hasPendingCrashReport]) {
             [self processCrashReport];
         }
@@ -428,6 +434,8 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) dealloc {
+    dispatch_release(postCrashOperationsQueue);
+    
     [_APIKey release];
     [_userDictionary release];
     [_crashReporter release];
