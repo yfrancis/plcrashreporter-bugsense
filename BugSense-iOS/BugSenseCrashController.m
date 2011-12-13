@@ -161,38 +161,40 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 #pragma mark - Crash callback method
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) performPostCrashOperations {
-    dispatch_async([self operationsQueue], ^{
+    dispatch_async(dispatch_get_current_queue(), ^{
         [self retainSymbolsForReport:[self crashReport]];
     });
     
-    dispatch_async([self operationsQueue], ^{
-        if (_immediately && [[self crashReporter] hasPendingCrashReport]) {
-            [self processCrashReport:[self crashReport]];
+    if (_immediately) {
+        dispatch_async(dispatch_get_current_queue(), ^{
+            if ([[self crashReporter] hasPendingCrashReport]) {
+                [self processCrashReport:[self crashReport]];
+            }
+        });
+        
+        CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+        CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
+        
+        while (!_operationCompleted) {
+            for (NSString *mode in (NSArray *)allModes) {
+                CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);
+            }
         }
-    });
-    
-    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
-	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
-	
-	while (!_operationCompleted) {
-		for (NSString *mode in (NSArray *)allModes) {
-			CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);
-		}
-	}
-	
-	CFRelease(allModes);
-    
-	NSSetUncaughtExceptionHandler(NULL);
-	signal(SIGABRT, SIG_DFL);
-	signal(SIGILL, SIG_DFL);
-	signal(SIGSEGV, SIG_DFL);
-	signal(SIGFPE, SIG_DFL);
-	signal(SIGBUS, SIG_DFL);
-	signal(SIGPIPE, SIG_DFL);
-    
-    NSLog(@"BugSense --> Immediate dispatch completed!");
-    
-    abort();
+        
+        CFRelease(allModes);
+        
+        NSSetUncaughtExceptionHandler(NULL);
+        signal(SIGABRT, SIG_DFL);
+        signal(SIGILL, SIG_DFL);
+        signal(SIGSEGV, SIG_DFL);
+        signal(SIGFPE, SIG_DFL);
+        signal(SIGBUS, SIG_DFL);
+        signal(SIGPIPE, SIG_DFL);
+        
+        NSLog(@"BugSense --> Immediate dispatch completed!");
+        
+        abort();
+    }
 }
 
 
@@ -208,11 +210,12 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     };
     [[self crashReporter] setCrashCallbacks:&cb];
     
-    dispatch_async([self operationsQueue], ^{
-        if ([[self crashReporter] hasPendingCrashReport]) {
+    if ([[self crashReporter] hasPendingCrashReport]) {
+        dispatch_async(dispatch_get_current_queue(), ^{
+            //[self retainSymbolsForReport:[self crashReport]];
             [self processCrashReport:[self crashReport]];
-        }
-    });
+        });
+    }
     
     if (![[self crashReporter] enableCrashReporterAndReturnError:&error]) {
         NSLog(kCrashReporterErrorString, error);

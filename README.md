@@ -4,6 +4,8 @@
 
 *Issues*: https://github.com/bugsense/plcrashreporter-bugsense/issues 
 
+*Note*: The source code/project works best with Xcode 4.2 and LLVM 3.0. The static library target builds with THUMB support disabled.
+
 
 ### Project status
  

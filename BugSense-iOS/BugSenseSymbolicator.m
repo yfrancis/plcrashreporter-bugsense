@@ -33,6 +33,11 @@
 #import "BugSenseSymbolicator.h"
 #include <dlfcn.h>
 
+#define kSymbolsProcessStartedMsg   @"BugSense --> Symbols are being retained..."
+#define kSymbolsProcessCompletedMsg @"BugSense --> Symbols have been retained."
+#define kSymbolsErrorMsg            @"BugSense --> Error while retaining symbols!"
+#define kSymbolsDataErrorMsg        @"BugSense --> Symbols data error: %@!"
+
 static NSString *BUGSENSE_CACHE_DIR = @"com.bugsense.crashcontroller.symbols";
 static NSString *BUGSENSE_LIVE_SYMBOLS = @"live_report_symbols.plist";
 
@@ -72,6 +77,8 @@ static NSMutableDictionary *symbolDictionary = nil;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BOOL) retainSymbolsForStackFrames:(NSArray *)stackFrames inReport:(PLCrashReport *)report {
+    NSLog(kSymbolsProcessStartedMsg);
+    
     if ([self populateSymbolsDirectoryAndReturnError:NULL]) {
         if (symbolDictionary) {
             [symbolDictionary removeAllObjects];
@@ -108,10 +115,15 @@ static NSMutableDictionary *symbolDictionary = nil;
                                                                       options:0
                                                                         error:&error];
         if (plistData) {
-            [plistData writeToFile:plistPath atomically:YES];
-            return YES;
+            if ([plistData writeToFile:plistPath atomically:YES]) {
+                NSLog(kSymbolsProcessCompletedMsg);
+                return YES;
+            } else {
+                NSLog(kSymbolsErrorMsg);
+                return NO;
+            }
         } else {
-            NSLog(@"error: %@", error);
+            NSLog(kSymbolsDataErrorMsg, error);
             [error release];
             return NO;
         }
