@@ -43,7 +43,8 @@
 
 #import "BugSenseJSONGenerator.h"
 
-#define kGeneratingJSONDataMsg @"BugSense --> Generating JSON data from crash report..."
+#define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
+#define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
 
 @implementation BugSenseJSONGenerator
 
@@ -410,7 +411,7 @@
             [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
-        NSLog(@"BugSense --> Something unusual happened during the generation of JSON data");
+        NSLog(kJSONErrorMsg);
         return nil;
     }
 }

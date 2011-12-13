@@ -36,6 +36,7 @@
 #import "BugSenseCrashController.h"
 #import "BugSenseSymbolicator.h"
 #import "BugSenseJSONGenerator.h"
+#import "BugSenseDataDispatcher.h"
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
@@ -43,11 +44,7 @@
 
 #import "CrashReporter.h"
 #import "PLCrashReportTextFormatter.h"
-#import "BSAFHTTPRequestOperation.h"
 #import "NSMutableURLRequest+AFNetworking.h"
-
-#define BUGSENSE_REPORTING_SERVICE_URL  @"http://www.bugsense.com/api/errors"
-#define BUGSENSE_HEADER                 @"X-BugSense-Api-Key"
 
 #define kLoadErrorString                @"BugSense --> Error: Could not load crash report data due to: %@"
 #define kParseErrorString               @"BugSense --> Error: Could not parse crash report due to: %@"
@@ -79,11 +76,6 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 
 - (void) retainSymbolsForReport:(PLCrashReport *)report;
 - (void) processCrashReport:(PLCrashReport *)report;
-- (BOOL) postJSONData:(NSData *)jsonData;
-- (void) observeValueForKeyPath:(NSString *)keyPath 
-                       ofObject:(id)object 
-                         change:(NSDictionary *)change 
-                        context:(void *)context;
 
 @end
 
@@ -383,80 +375,22 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     }
     
     // Send the JSON string to the BugSense servers
-    [self postJSONData:jsonData];
+    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:self];
 }
 
+@end
 
+
+@implementation BugSenseCrashController (Delegation)
+
+#pragma mark Delegate method (in category)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL) postJSONData:(NSData *)jsonData {
-    if (!jsonData) {
-        NSLog(@"BugSense --> No JSON data was given to post.");
-        return NO;
-    } else {
-        NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
-        NSMutableURLRequest *bugsenseRequest = [[[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
-            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f] autorelease];
-        [bugsenseRequest setHTTPMethod:@"POST"];
-        [bugsenseRequest setValue:_APIKey forHTTPHeaderField:BUGSENSE_HEADER];
-        [bugsenseRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        
-        NSMutableData *postData = [NSMutableData data];
-        [postData appendData:[@"data=" dataUsingEncoding:NSUTF8StringEncoding]];
-        [postData appendData:jsonData];
-        [bugsenseRequest setHTTPBody:postData];
-        
-        // This version employs blocks so this is only working under iOS 4.0+.
-        /*AFHTTPRequestOperation *operation = 
-            [AFHTTPRequestOperation operationWithRequest:bugsenseRequest 
-                completion:^(NSURLRequest *request, NSHTTPURLResponse *response, NSData *data, NSError *error) {
-                    NSLog(@"BugSense --> Server responded with: \nstatus code:%i\nheader fields: %@", 
-                        response.statusCode, response.allHeaderFields);
-                    if (error) {
-                        NSLog(@"BugSense --> Error: %@", error);
-                    } else {
-                        BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
-                                                     containsIndex:[response statusCode]];
-                        if (statusCodeAcceptable) {
-                            [[self crashReporter] purgePendingCrashReport];
-                            [BugSenseSymbolicator clearSymbols];
-                        }
-                    }
-            }];*/
-        
-        BSAFHTTPRequestOperation *operation = [BSAFHTTPRequestOperation operationWithRequest:bugsenseRequest 
-                                                                                    observer:self];
-        
-        /// add operation to queue
-        [[NSOperationQueue mainQueue] addOperation:operation];
-
-        NSLog(@"BugSense --> Posting JSON data...");
-        
-        return YES;
+- (void) operationCompleted:(BOOL)statusCodeAcceptable {
+    if (statusCodeAcceptable) {
+        [[self crashReporter] purgePendingCrashReport];
+        [BugSenseSymbolicator clearSymbols];
     }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) observeValueForKeyPath:(NSString *)keyPath 
-                       ofObject:(id)object 
-                         change:(NSDictionary *)change 
-                        context:(void *)context {
-    if ([keyPath isEqualToString:@"isFinished"] && [object isKindOfClass:[BSAFHTTPRequestOperation class]]) {
-        BSAFHTTPRequestOperation *operation = object;
-        NSLog(@"BugSense --> Server responded with status code: %i", operation.response.statusCode);
-        if (operation.error) {
-            NSLog(@"BugSense --> Error: %@", operation.error);
-        } else {
-            BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
-                                         containsIndex:[operation.response statusCode]];
-            if (statusCodeAcceptable) {
-                [[self crashReporter] purgePendingCrashReport];
-                [BugSenseSymbolicator clearSymbols];
-            }
-        }
-        
-        _operationCompleted = YES;
-    }
+    _operationCompleted = YES;
 }
 
 @end
