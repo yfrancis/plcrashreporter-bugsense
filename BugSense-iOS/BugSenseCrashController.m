@@ -152,6 +152,9 @@ static BugSenseCrashController *_sharedCrashController = nil;
 #pragma mark - Crash callback function
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
+    [_sharedCrashController performSelectorOnMainThread:@selector(retainSymbolsForReport:) 
+                                             withObject:[_sharedCrashController crashReport] 
+                                          waitUntilDone:YES];
     [_sharedCrashController performSelectorOnMainThread:@selector(performPostCrashOperations) 
                                              withObject:nil 
                                           waitUntilDone:YES];
@@ -160,11 +163,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 
 #pragma mark - Crash callback method
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) performPostCrashOperations {
-    dispatch_async(dispatch_get_current_queue(), ^{
-        [self retainSymbolsForReport:[self crashReport]];
-    });
-    
+- (void) performPostCrashOperations {    
     if (_immediately) {
         dispatch_async(dispatch_get_current_queue(), ^{
             if ([[self crashReporter] hasPendingCrashReport]) {
@@ -212,7 +211,6 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     
     if ([[self crashReporter] hasPendingCrashReport]) {
         dispatch_async(dispatch_get_current_queue(), ^{
-            //[self retainSymbolsForReport:[self crashReport]];
             [self processCrashReport:[self crashReport]];
         });
     }
