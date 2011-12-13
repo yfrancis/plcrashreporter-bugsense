@@ -87,17 +87,6 @@ static NSMutableDictionary *symbolDictionary = nil;
         symbolDictionary = [[NSMutableDictionary alloc] init];
         
         for (PLCrashReportStackFrameInfo *frameInfo in stackFrames) {
-            uint64_t baseAddress = 0x0;
-            uint64_t pcOffset = 0x0;
-            const char *imageName = "\?\?\?";
-            
-            PLCrashReportBinaryImageInfo *imageInfo = [report imageForAddress:frameInfo.instructionPointer];
-            if (imageInfo != nil) {
-                imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
-                baseAddress = imageInfo.imageBaseAddress;
-                pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
-            }
-            
             Dl_info theInfo;
             if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
                 NSString *symbol = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
