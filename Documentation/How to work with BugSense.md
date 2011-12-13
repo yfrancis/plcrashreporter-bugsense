@@ -160,8 +160,7 @@ BugSense sends the crash data immediately.
 BugSense prints out some messages on the Console. You will typically see things like:
 
 	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Processing crash report...
-	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Crashed on 2011-10-18 14:48:38 +0000
-	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Crashed with signal SIGABRT (code #0, address=0x3095032c)
+	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Crashed on 2011-10-18 09:02:49 +0000, with signal SIGABRT (code #0, address=0x309c332c)
 	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Generating JSON data from crash report...
 	Oct 18 17:49:22 unknown BugSenseDemo[176] <Warning>: BugSense --> Posting JSON data...
 	Oct 18 17:49:24 unknown BugSenseDemo[176] <Warning>: BugSense --> Server responded with status code: 200
@@ -171,7 +170,7 @@ BugSense prints out some messages on the Console. You will typically see things 
 
 Typically, a factory method returns an autoreleased object, which means that clients have to retain it in order to use it beyond that particular program scope. As BugSense is meant to be used during the full lifetime of an application, the shared object is not autoreleased. This provides some insurance that the shared controller will not be 'easily' deallocated.
 
-The "shared" prefix indicates that the controller is a singleton. This is not actually enforced at the moment, but rather indicates how the controller should be used. This will change in an upcoming revision.
+The "shared" prefix indicates that the controller is a singleton. This is now currently enforced.
 
 Additionally, to provide for some compatibility with the previous version of the framework, we kept the "sharedInstance..." naming convention, which goes again the norm of having factory methods return the type name minus the prefix ("sharedController...").
 
