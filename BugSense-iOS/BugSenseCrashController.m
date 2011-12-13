@@ -34,6 +34,8 @@
 #include <arpa/inet.h>
 #include <dlfcn.h>
 #include <execinfo.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
 
 #import "BugSenseCrashController.h"
 #import "BugSenseSymbolicator.h"
@@ -68,6 +70,7 @@
 - (PLCrashReporter *) crashReporter;
 - (PLCrashReport *) crashReport;
 - (NSString *) currentIPAddress;
+- (NSString *) device;
 
 void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 - (void) performPostCrashOperations;
@@ -173,6 +176,111 @@ static BugSenseCrashController *_sharedCrashController = nil;
     freeifaddrs(interfaces);
     
     return address;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSString *) device {
+    int mib[2];
+    size_t len;
+    char *machine;
+    
+    mib[0] = CTL_HW;
+    mib[1] = HW_MACHINE;
+    sysctl(mib, 2, NULL, &len, NULL, 0);
+    machine = malloc(len);
+    sysctl(mib, 2, machine, &len, NULL, 0);
+    
+    NSString *platform = [NSString stringWithCString:machine encoding:NSASCIIStringEncoding];
+    free(machine);
+    
+    NSString *device = nil;
+
+    // iPhone
+    if ([platform isEqualToString:@"iPhone1,1"]) {
+        device = @"iPhone [iPhone1,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPhone1,2"]) {
+        device = @"iPhone 3G [iPhone1,2]";
+    }
+    
+    if ([platform isEqualToString:@"iPhone2,1"]) {
+        device = @"iPhone 3GS [iPhone2,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPhone3,1"]) {
+        device = @"iPhone 4 (GSM) [iPhone3,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPhone3,3"]) {
+        device = @"iPhone 4 (CDMA) [iPhone3,3]";
+    }
+    
+    if ([platform isEqualToString:@"iPhone4,1"]) {
+        device = @"iPhone 4S [iPhone4,1]";
+    }
+    
+    // iPod touch
+    if ([platform isEqualToString:@"iPod1,1"]) {
+        device = @"iPod Touch [iPod1,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPod2,1"]) {
+        device = @"iPod Touch (2nd generation) [iPod2,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPod3,1"]) {
+        device = @"iPod Touch (3rd generation) [iPod3,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPod4,1"]) {
+        device = @"iPod Touch (4th generation) [iPod4,1]";
+    }
+    
+    // iPad
+    if ([platform isEqualToString:@"iPad1,1"]) {
+        device = @"iPad [iPad1,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPad2,1"]) {
+        device = @"iPad 2 (Wi-Fi) [iPad2,1]";
+    }
+    
+    if ([platform isEqualToString:@"iPad2,2"]) {
+        device = @"iPad 2 (Wi-Fi + 3G GSM) [iPad2,2]";
+    }
+    
+    if ([platform isEqualToString:@"iPad2,3"]) {
+        device = @"iPad 2 (Wi-Fi + 3G CDMA) [iPad2,3]";
+    }
+    
+    // Apple TV
+    if ([platform isEqualToString:@"AppleTV1,1"]) {
+        device = @"Apple TV [AppleTV1,1]";
+    }
+    
+    if ([platform isEqualToString:@"AppleTV2,1"]) {
+        device = @"Apple TV (2nd generation) [AppleTV2,1]";
+    }
+    
+    if ([platform isEqualToString:@"i386"]) {
+        device = @"iPhone Simulator";
+    }
+    
+    if (!device) {
+        device = [UIDevice currentDevice].model;
+    }
+    
+    if (!device) {
+        if (!platform) {
+            return @"";
+        } else {
+            return platform;
+        }
+    } else {
+        return device;
+    }
 }
 
 
@@ -480,7 +588,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         [application_environment setObject:report.systemInfo.operatingSystemVersion forKey:@"osver"];
         
         // ----phone
-        [application_environment setObject:[UIDevice currentDevice].model forKey:@"phone"];
+        [application_environment setObject:[self device] forKey:@"phone"];
     
         // ----timestamp
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
