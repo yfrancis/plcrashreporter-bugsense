@@ -2,11 +2,11 @@
 
 This is the source code for the iOS version of the BugSense plugin.
 
-*Latest updates*: Compatible with iOS 4.0+. Provides accurate program counter offset for each line in the stacktrace. Bug fixes for possible misreportings. Improvements across the board. Major refactorings to support additional future functionality.
+*Latest updates*: rev3: Compatible with iOS 4.0+. Provides accurate program counter offset for each line in the stacktrace. Bug fixes for possible misreportings. Improvements across the board. Major refactorings to support additional future functionality.
 
 *Issues*: https://github.com/bugsense/plcrashreporter-bugsense/issues 
 
-*Note*: The source code/project works best with Xcode 4.2 and LLVM 3.0. The static library target builds with THUMB support disabled. Uses blocks extensively, but can be adapted to work with iOS 3.0 with some effort.
+*Note*: The source code/project works best with Xcode 4.2 and LLVM 3.0. Uses blocks extensively, but can be adapted to work with iOS 3.0 with some effort. The static library target builds with THUMB support disabled. 
 
 
 ### Project status
