@@ -39,11 +39,14 @@
 #import "BSReachability.h"
 #import "BugSenseSymbolicator.h"
 #import "JSONKit.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
 
 #import "BugSenseJSONGenerator.h"
 
 #define kNoAddressStatus        @"Could not be found."
 #define kAppNameNotFoundStatus  @"App name not found."
+#define kCarrierNotFoundStatus  @"Carrier could not be determined."
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
 
@@ -289,6 +292,21 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) carrierName {
+    Class telephonyNetworkInfoClass = NSClassFromString(@"CTTelephonyNetworkInfo");
+    Class carrierClass = NSClassFromString(@"CTCarrier");
+    if (telephonyNetworkInfoClass && carrierClass) {
+        id telephonyNetworkInfo = [[telephonyNetworkInfoClass alloc] init];
+        id carrier = objc_msgSend(telephonyNetworkInfo, sel_getUid("subscriberCellularProvider"));
+        NSString *carrierName = (NSString *)objc_msgSend(carrier, sel_getUid("carrierName"));
+        return carrierName;
+    } else {
+        return kCarrierNotFoundStatus;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report userDictionary:(NSDictionary *)userDictionary {
     if (!report) {
         return nil;
@@ -321,6 +339,8 @@
             [application_environment setObject:[NSNumber numberWithBool:(BOOL)[locationManagerClass locationServicesEnabled]] 
                                         forKey:@"gps_on"];
         }
+        
+        [application_environment setObject:[self carrierName] forKey:@"carrier"];
 
         CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
         CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
@@ -373,7 +393,6 @@
         [application_environment setObject:[formatter stringFromDate:report.systemInfo.timestamp] 
                                     forKey:@"timestamp"];
         [formatter release];
-        
         
         // --exception
         NSMutableDictionary *exception = [[[NSMutableDictionary alloc] init] autorelease];
@@ -554,6 +573,8 @@
             [application_environment setObject:[NSNumber numberWithBool:(BOOL)[locationManagerClass locationServicesEnabled]] 
                                         forKey:@"gps_on"];
         }
+        
+        [application_environment setObject:[self carrierName] forKey:@"carrier"];
         
         CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)[NSBundle mainBundle].bundleIdentifier);
         CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);

@@ -38,7 +38,6 @@
 #import "BugSenseJSONGenerator.h"
 #import "BugSenseDataDispatcher.h"
 
-#import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
