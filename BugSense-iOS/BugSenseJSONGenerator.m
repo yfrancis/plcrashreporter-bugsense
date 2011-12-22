@@ -43,14 +43,68 @@
 
 #import "BugSenseJSONGenerator.h"
 
+#define kNoAddressStatus        @"Could not be found."
+#define kAppNameNotFoundStatus  @"App name not found."
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
+
+#define kBugSenseFrameworkVersion @"1.0 (rev4)"
+#define kBugSensePlatform @"iOS"
 
 @implementation BugSenseJSONGenerator
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (NSString *) currentIPAddress {
-    NSString *address = @"Could not be found";
++ (NSString *) frameworkVersion {
+    return kBugSenseFrameworkVersion;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) frameworkPlatform {
+    return kBugSensePlatform;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationNameForReport:(PLCrashReport *)report {
+    NSArray *identifierComponents = [report.applicationInfo.applicationIdentifier componentsSeparatedByString:@"."];
+    if (identifierComponents && identifierComponents.count > 0) {
+        return [identifierComponents lastObject];
+    } else {
+        return kAppNameNotFoundStatus;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationBuildNumberForReport:(PLCrashReport *)report {
+    CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
+    CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
+    CFStringRef buildNumber;
+    
+    // If we succeeded, look for our property.
+    if (bundleInfoDict != NULL) {
+        buildNumber = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
+        if (buildNumber) {
+            return (NSString *)buildNumber;
+        } else {
+            return @"";
+        }
+    } else {
+        return @"";
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationVersionNumberForReport:(PLCrashReport *)report {
+    return report.applicationInfo.applicationVersion;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) IPAddress {
+    NSString *address = kNoAddressStatus;
     
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
@@ -195,32 +249,27 @@
         // --application_environment
         NSMutableDictionary *application_environment = [[[NSMutableDictionary alloc] init] autorelease];
         
+        // ----bugsense_version
+        [application_environment setObject:[self frameworkVersion] forKey:@"version"];
+        
+        // ----bugsense_name
+        [application_environment setObject:[self frameworkPlatform] forKey:@"name"];
+        
         // ----appname
-        NSArray *identifierComponents = [report.applicationInfo.applicationIdentifier componentsSeparatedByString:@"."];
-        if (identifierComponents && identifierComponents.count > 0) {
-            [application_environment setObject:[identifierComponents lastObject] forKey:@"appname"];
-        }
+        [application_environment setObject:[self applicationNameForReport:report] forKey:@"appname"];
         
         // ----appver
-        CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
-        CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
-        CFStringRef buildNumber;
-        
-        // If we succeeded, look for our property.
-        if (bundleInfoDict != NULL) {
-            buildNumber = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
-            if (buildNumber) {
-                [application_environment setObject:(NSString *)buildNumber forKey:@"appver"];
-            }
-        }
+        [application_environment setObject:[self applicationNameForReport:report] forKey:@"appver"];
         
         // ----internal_version
-        [application_environment setObject:report.applicationInfo.applicationVersion forKey:@"internal_version"];
+        [application_environment setObject:[self applicationVersionNumberForReport:report] forKey:@"internal_version"];
         
         // ----gps_on
         [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
                                     forKey:@"gps_on"];
-        
+
+        CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
+        CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
         if (bundleInfoDict != NULL) {
             NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
             CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
@@ -396,7 +445,7 @@
         NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
         
         // ----remote_ip
-        [request setObject:[self currentIPAddress] forKey:@"remote_ip"];
+        [request setObject:[self IPAddress] forKey:@"remote_ip"];
         if (userDictionary) {
             [request setObject:userDictionary forKey:@"custom_data"];
         }
