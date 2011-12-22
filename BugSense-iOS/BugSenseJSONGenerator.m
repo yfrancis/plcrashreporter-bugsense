@@ -35,7 +35,6 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
-#import <CoreLocation/CoreLocation.h>
 #import "CrashReporter.h"
 #import "BSReachability.h"
 #import "BugSenseSymbolicator.h"
@@ -317,8 +316,11 @@
         [application_environment setObject:[self applicationVersionNumberForReport:report] forKey:@"internal_version"];
         
         // ----gps_on
-        [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
-                                    forKey:@"gps_on"];
+        Class locationManagerClass = NSClassFromString(@"CLLocationManager");
+        if (locationManagerClass) {
+            [application_environment setObject:[NSNumber numberWithBool:(BOOL)[locationManagerClass locationServicesEnabled]] 
+                                        forKey:@"gps_on"];
+        }
 
         CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
         CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
@@ -547,8 +549,11 @@
         [application_environment setObject:[self applicationVersionNumber] forKey:@"internal_version"];
         
         // ----gps_on
-        [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
-                                    forKey:@"gps_on"];
+        Class locationManagerClass = NSClassFromString(@"CLLocationManager");
+        if (locationManagerClass) {
+            [application_environment setObject:[NSNumber numberWithBool:(BOOL)[locationManagerClass locationServicesEnabled]] 
+                                        forKey:@"gps_on"];
+        }
         
         CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)[NSBundle mainBundle].bundleIdentifier);
         CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
@@ -608,52 +613,6 @@
         
         // ----backtrace, where        
         NSArray *stacktrace = [exception callStackSymbols];
-        
-        /*NSMutableArray *stacktrace = [[[NSMutableArray alloc] init] autorelease];
-
-        PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
-        NSInteger pos = -1;
-        
-        for (NSUInteger frameIndex = 0; frameIndex < [exceptionInfo.stackFrames count]; frameIndex++) {
-            PLCrashReportStackFrameInfo *frameInfo = [exceptionInfo.stackFrames objectAtIndex:frameIndex];
-            PLCrashReportBinaryImageInfo *imageInfo;
-            
-            uint64_t baseAddress = 0x0;
-            uint64_t pcOffset = 0x0;
-            const char *imageName = "\?\?\?";
-            
-            imageInfo = [report imageForAddress:frameInfo.instructionPointer];
-            if (imageInfo != nil) {
-                imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
-                baseAddress = imageInfo.imageBaseAddress;
-                pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
-            }
-            
-            //Dl_info theInfo;
-            NSString *stackframe = nil;
-            NSString *commandName = nil;
-            NSArray *symbolAndOffset = 
-            [BugSenseSymbolicator symbolAndOffsetForInstructionPointer:frameInfo.instructionPointer];
-            if (symbolAndOffset && symbolAndOffset.count > 1) {
-                commandName = [symbolAndOffset objectAtIndex:0];
-                pcOffset = ((NSString *)[symbolAndOffset objectAtIndex:1]).integerValue;
-                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
-                              (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
-            } else {
-                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
-                              (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
-            }
-            
-            [stacktrace addObject:stackframe];
-            
-            if ([commandName hasPrefix:@"+[NSException raise:"]) {
-                pos = frameIndex+1;
-            } else {
-                if (pos != -1 && pos == frameIndex) {
-                    [exception setObject:stackframe forKey:@"where"];
-                }
-            }
-        }*/
         
         if (![exceptionDict objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
             [exceptionDict setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
