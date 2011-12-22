@@ -33,5 +33,7 @@
 @interface BugSenseJSONGenerator : NSObject
 
 + (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report userDictionary:(NSDictionary *)userDictionary;
++ (NSData *) JSONDataFromException:(NSException *)exception userDictionary:(NSDictionary *)userDictionary 
+                               tag:(NSString *)tag;
 
 @end

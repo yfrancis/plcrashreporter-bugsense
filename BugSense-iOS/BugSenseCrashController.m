@@ -85,9 +85,6 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 @implementation BugSenseCrashController {
     dispatch_queue_t    _operationsQueue; 
     
-    NSString            *_APIKey;
-    NSDictionary        *_userDictionary;
-    BOOL                _immediately;
     BOOL                _operationCompleted;
     
     PLCrashReporter     *_crashReporter;
@@ -95,6 +92,9 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 }
 
 static BugSenseCrashController *_sharedCrashController = nil;
+static NSDictionary            *_userDictionary;
+static NSString                *_APIKey;
+static BOOL                    _immediately;
 
 #pragma mark - Ivar accessors
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,6 +192,23 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         
         abort();
     }
+}
+
+
+#pragma mark - Logging method
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (BOOL) logException:(NSException *)exception withTag:(NSString *)tag {
+    NSData *jsonData = [BugSenseJSONGenerator JSONDataFromException:exception userDictionary:_userDictionary 
+                                                                tag:tag];
+    if (!jsonData) {
+        NSLog(kJSONErrorString);
+        return NO;
+    }
+    
+    // Send the JSON string to the BugSense servers
+    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:nil];
+    
+    return YES;
 }
 
 

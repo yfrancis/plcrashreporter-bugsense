@@ -30,6 +30,8 @@
  
  */
 
+#define BUGSENSE_LOG(__EXCEPTION, __TAG) [BugSenseCrashController logException:__EXCEPTION withTag:__TAG]
+
 UIKIT_EXTERN @interface BugSenseCrashController : NSObject
 
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)APIKey;
@@ -40,5 +42,7 @@ UIKIT_EXTERN @interface BugSenseCrashController : NSObject
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)APIKey 
                                                 userDictionary:(NSDictionary *)userDictionary
                                                sendImmediately:(BOOL)immediately;
+
++ (BOOL) logException:(NSException *)exception withTag:(NSString *)tag;
 
 @end

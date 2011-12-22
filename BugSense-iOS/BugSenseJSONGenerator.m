@@ -77,6 +77,22 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationName {
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    if (mainBundle) {
+        NSArray *identifierComponents = [mainBundle.bundleIdentifier componentsSeparatedByString:@"."];
+        if (identifierComponents && identifierComponents.count > 0) {
+            return [identifierComponents lastObject];
+        } else {
+            return kAppNameNotFoundStatus;
+        }
+    } else {
+        return kAppNameNotFoundStatus;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString *) applicationBuildNumberForReport:(PLCrashReport *)report {
     CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
     CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
@@ -97,8 +113,44 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationBuildNumber {
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSDictionary *infoDictionary = mainBundle.infoDictionary;
+    NSString *buildNumber = nil;
+    if (infoDictionary && infoDictionary.count) {
+        buildNumber = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        if (buildNumber) {
+            return buildNumber;
+        } else {
+            return @"";
+        }
+    } else {
+        return @"";
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString *) applicationVersionNumberForReport:(PLCrashReport *)report {
     return report.applicationInfo.applicationVersion;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) applicationVersionNumber {
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSDictionary *infoDictionary = mainBundle.infoDictionary;
+    NSString *versionNumber = nil;
+    if (infoDictionary && infoDictionary.count) {
+        versionNumber = [infoDictionary objectForKey:@"CFBundleVersion"];
+        if (versionNumber) {
+            return versionNumber;
+        } else {
+            return @"";
+        }
+    } else {
+        return @"";
+    }
 }
 
 
@@ -259,7 +311,7 @@
         [application_environment setObject:[self applicationNameForReport:report] forKey:@"appname"];
         
         // ----appver
-        [application_environment setObject:[self applicationNameForReport:report] forKey:@"appver"];
+        [application_environment setObject:[self applicationBuildNumberForReport:report] forKey:@"appver"];
         
         // ----internal_version
         [application_environment setObject:[self applicationVersionNumberForReport:report] forKey:@"internal_version"];
@@ -460,6 +512,183 @@
             [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
+        NSLog(kJSONErrorMsg);
+        return nil;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSData *) JSONDataFromException:(NSException *)exception userDictionary:(NSDictionary *)userDictionary 
+                               tag:(NSString *)tag {
+    if (!exception) {
+        return nil;
+    }
+    
+    @try {
+        NSLog(kGeneratingJSONDataMsg);
+        
+        // --application_environment
+        NSMutableDictionary *application_environment = [[[NSMutableDictionary alloc] init] autorelease];
+        
+        // ----bugsense_version
+        [application_environment setObject:[self frameworkVersion] forKey:@"version"];
+        
+        // ----bugsense_name
+        [application_environment setObject:[self frameworkPlatform] forKey:@"name"];
+        
+        // ----appname
+        [application_environment setObject:[self applicationName] forKey:@"appname"];
+        
+        // ----appver
+        [application_environment setObject:[self applicationBuildNumber] forKey:@"appver"];
+        
+        // ----internal_version
+        [application_environment setObject:[self applicationVersionNumber] forKey:@"internal_version"];
+        
+        // ----gps_on
+        [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
+                                    forKey:@"gps_on"];
+        
+        CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)[NSBundle mainBundle].bundleIdentifier);
+        CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
+        if (bundleInfoDict != NULL) {
+            NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
+            CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
+            if (baseLanguage) {
+                [languages appendString:(NSString *)baseLanguage];
+            }
+            
+            CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
+            if (allLanguages) {
+                [languages appendString:(NSString *)allLanguages];
+            }
+            if (languages) {
+                [application_environment setObject:(NSString *)languages forKey:@"languages"];
+            }
+        }
+        
+        // ----locale
+        [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
+        
+        // ----mobile_net_on, wifi_on
+        BSReachability *reach = [BSReachability reachabilityForInternetConnection];
+        NetworkStatus status = [reach currentReachabilityStatus];
+        switch (status) {
+            case NotReachable:
+                [application_environment setObject:[NSNumber numberWithBool:NO] forKey:@"mobile_net_on"];
+                [application_environment setObject:[NSNumber numberWithBool:NO] forKey:@"wifi_on"];
+                break;
+            case ReachableViaWiFi:
+                [application_environment setObject:[NSNumber numberWithBool:NO] forKey:@"mobile_net_on"];
+                [application_environment setObject:[NSNumber numberWithBool:YES] forKey:@"wifi_on"];
+                break;
+            case ReachableViaWWAN:
+                [application_environment setObject:[NSNumber numberWithBool:YES] forKey:@"mobile_net_on"];
+                [application_environment setObject:[NSNumber numberWithBool:NO] forKey:@"wifi_on"];
+                break;
+        }
+        
+        // ----osver
+        [application_environment setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osver"];
+        
+        // ----phone
+        [application_environment setObject:[self device] forKey:@"phone"];
+        
+        // ----timestamp
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss zzzzz"];
+        [application_environment setObject:[formatter stringFromDate:[NSDate date]] 
+                                    forKey:@"timestamp"];
+        [formatter release];
+        
+        
+        // --exception
+        NSMutableDictionary *exceptionDict = [[[NSMutableDictionary alloc] init] autorelease];
+        
+        // ----backtrace, where        
+        NSArray *stacktrace = [exception callStackSymbols];
+        
+        /*NSMutableArray *stacktrace = [[[NSMutableArray alloc] init] autorelease];
+
+        PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
+        NSInteger pos = -1;
+        
+        for (NSUInteger frameIndex = 0; frameIndex < [exceptionInfo.stackFrames count]; frameIndex++) {
+            PLCrashReportStackFrameInfo *frameInfo = [exceptionInfo.stackFrames objectAtIndex:frameIndex];
+            PLCrashReportBinaryImageInfo *imageInfo;
+            
+            uint64_t baseAddress = 0x0;
+            uint64_t pcOffset = 0x0;
+            const char *imageName = "\?\?\?";
+            
+            imageInfo = [report imageForAddress:frameInfo.instructionPointer];
+            if (imageInfo != nil) {
+                imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
+                baseAddress = imageInfo.imageBaseAddress;
+                pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
+            }
+            
+            //Dl_info theInfo;
+            NSString *stackframe = nil;
+            NSString *commandName = nil;
+            NSArray *symbolAndOffset = 
+            [BugSenseSymbolicator symbolAndOffsetForInstructionPointer:frameInfo.instructionPointer];
+            if (symbolAndOffset && symbolAndOffset.count > 1) {
+                commandName = [symbolAndOffset objectAtIndex:0];
+                pcOffset = ((NSString *)[symbolAndOffset objectAtIndex:1]).integerValue;
+                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
+                              (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
+            } else {
+                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
+                              (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+            }
+            
+            [stacktrace addObject:stackframe];
+            
+            if ([commandName hasPrefix:@"+[NSException raise:"]) {
+                pos = frameIndex+1;
+            } else {
+                if (pos != -1 && pos == frameIndex) {
+                    [exception setObject:stackframe forKey:@"where"];
+                }
+            }
+        }*/
+        
+        if (![exceptionDict objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
+            [exceptionDict setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
+        }
+        
+        if (stacktrace.count > 0) {
+            [exceptionDict setObject:stacktrace forKey:@"backtrace"];
+        } else {
+            [exceptionDict setObject:@"No backtrace available [?]" forKey:@"backtrace"];
+        }
+        
+        // ----klass, message
+        [exceptionDict setObject:exception.name forKey:@"klass"];
+        [exceptionDict setObject:exception.reason forKey:@"message"];
+        
+        // --request
+        NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
+        
+        // ----remote_ip
+        [request setObject:[self IPAddress] forKey:@"remote_ip"];
+        if (userDictionary) {
+            [request setObject:userDictionary forKey:@"custom_data"];
+            [request setObject:[NSString stringWithFormat:@"log-%@",tag] forKey:@"tag"];
+        }
+        
+        // root
+        NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
+        [rootDictionary setObject:application_environment forKey:@"application_environment"];
+        [rootDictionary setObject:exceptionDict forKey:@"exception"];
+        [rootDictionary setObject:request forKey:@"request"];
+        
+        NSString *jsonString = 
+            [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    } @catch (NSException *jsonException) {
         NSLog(kJSONErrorMsg);
         return nil;
     }
