@@ -296,7 +296,7 @@
     Class telephonyNetworkInfoClass = NSClassFromString(@"CTTelephonyNetworkInfo");
     Class carrierClass = NSClassFromString(@"CTCarrier");
     if (telephonyNetworkInfoClass && carrierClass) {
-        id telephonyNetworkInfo = [[telephonyNetworkInfoClass alloc] init];
+        id telephonyNetworkInfo = [[[telephonyNetworkInfoClass alloc] init] autorelease];
         id carrier = objc_msgSend(telephonyNetworkInfo, sel_getUid("subscriberCellularProvider"));
         NSString *carrierName = (NSString *)objc_msgSend(carrier, sel_getUid("carrierName"));
         return carrierName;
@@ -568,7 +568,7 @@
         [rootDictionary setObject:request forKey:@"request"];
         
         NSString *jsonString = 
-            [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[rootDictionary bs_JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
         NSLog(kJSONErrorMsg);
@@ -688,7 +688,7 @@
         [rootDictionary setObject:request forKey:@"request"];
         
         NSString *jsonString = 
-            [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[rootDictionary bs_JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *jsonException) {
         NSLog(kJSONErrorMsg);
