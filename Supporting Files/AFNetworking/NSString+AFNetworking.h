@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@interface NSString (AFNetworking)
+@interface NSString (BSAFNetworking)
 
-- (NSString *)urlEncodedString;
-- (NSString *)urlEncodedStringWithEncoding:(NSStringEncoding)encoding;
+- (NSString *)bs_urlEncodedString;
+- (NSString *)bs_urlEncodedStringWithEncoding:(NSStringEncoding)encoding;
 
 @end

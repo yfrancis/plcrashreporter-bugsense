@@ -23,9 +23,9 @@
 #import "NSMutableURLRequest+AFNetworking.h"
 #import "NSData+AFNetworking.h"
 
-@implementation NSMutableURLRequest (AFNetworking)
+@implementation NSMutableURLRequest (BSAFNetworking)
 
-- (void)setHTTPBodyWithData:(NSData *)data 
+- (void)bs_setHTTPBodyWithData:(NSData *)data 
                    mimeType:(NSString *)mimeType 
           forParameterNamed:(NSString *)parameterName 
                  parameters:(NSDictionary *)parameters

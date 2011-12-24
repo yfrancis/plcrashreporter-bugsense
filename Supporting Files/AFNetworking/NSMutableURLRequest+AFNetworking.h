@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@interface NSMutableURLRequest (AFNetworking)
+@interface NSMutableURLRequest (BSAFNetworking)
 
-- (void)setHTTPBodyWithData:(NSData *)data 
+- (void)bs_setHTTPBodyWithData:(NSData *)data 
                    mimeType:(NSString *)mimeType 
           forParameterNamed:(NSString *)parameterName 
                  parameters:(NSDictionary *)parameters

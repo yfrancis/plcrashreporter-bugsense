@@ -22,14 +22,14 @@
 
 #import "NSString+AFNetworking.h"
 
-@implementation NSString (AFNetworking)
+@implementation NSString (BSAFNetworking)
 
-- (NSString*)urlEncodedString { 
-	return [self urlEncodedStringWithEncoding:NSUTF8StringEncoding];
+- (NSString*)bs_urlEncodedString { 
+	return [self bs_urlEncodedStringWithEncoding:NSUTF8StringEncoding];
 }
 
 // See http://github.com/pokeb/asi-http-request/raw/master/Classes/ASIFormDataRequest.m
-- (NSString *)urlEncodedStringWithEncoding:(NSStringEncoding)encoding { 
+- (NSString *)bs_urlEncodedStringWithEncoding:(NSStringEncoding)encoding { 
 	NSString *urlEncodedString = [(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, (CFStringRef)@":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`", CFStringConvertNSStringEncodingToEncoding(encoding)) autorelease];
 	
     return urlEncodedString ? urlEncodedString : @"";
