@@ -17,6 +17,11 @@
 		058D4C47143BC2D6002A01CA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2C143BC2D6002A01CA /* JSONKit.m */; };
 		058D4C49143BC2D6002A01CA /* BSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2F143BC2D6002A01CA /* BSReachability.m */; };
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
+		0596234814A621180098626B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234714A621180098626B /* SenTestingKit.framework */; };
+		0596234A14A621180098626B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234914A621180098626B /* UIKit.framework */; };
+		0596234C14A621180098626B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234B14A621180098626B /* Foundation.framework */; };
+		0596235214A621180098626B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0596235014A621180098626B /* InfoPlist.strings */; };
+		0596235514A621180098626B /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596235414A621180098626B /* LogicTests.m */; };
 		059964F51497F3FC008157E9 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
 		05B0BF9014487F8A00ECFF3F /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */; };
 		05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
@@ -168,6 +173,15 @@
 		058D4C4A143BC2EE002A01CA /* BugSense-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "BugSense-iOS-Info.plist"; path = "BugSense-iOS/BugSense-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BugSense-iOS-Prefix.pch"; path = "BugSense-iOS/BugSense-iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		058D4C4D143BC2EE002A01CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "BugSense-iOS/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		0596234614A621180098626B /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0596234714A621180098626B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		0596234914A621180098626B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		0596234B14A621180098626B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		0596234F14A621180098626B /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
+		0596235114A621180098626B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0596235314A621180098626B /* LogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicTests.h; sourceTree = "<group>"; };
+		0596235414A621180098626B /* LogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicTests.m; sourceTree = "<group>"; };
+		0596235614A621180098626B /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
 		05B0BF8B14487F8900ECFF3F /* BSAFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAFRestClient.h; sourceTree = "<group>"; };
 		05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAFRestClient.m; sourceTree = "<group>"; };
 		05B4E62F14979C9A00D3EE63 /* BugSenseJSONGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseJSONGenerator.h; path = "BugSense-iOS/BugSenseJSONGenerator.h"; sourceTree = SOURCE_ROOT; };
@@ -189,6 +203,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0596234214A621180098626B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0596234814A621180098626B /* SenTestingKit.framework in Frameworks */,
+				0596234A14A621180098626B /* UIKit.framework in Frameworks */,
+				0596234C14A621180098626B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +294,26 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		0596234D14A621180098626B /* LogicTests */ = {
+			isa = PBXGroup;
+			children = (
+				0596235314A621180098626B /* LogicTests.h */,
+				0596235414A621180098626B /* LogicTests.m */,
+				0596234E14A621180098626B /* Supporting Files */,
+			);
+			path = LogicTests;
+			sourceTree = "<group>";
+		};
+		0596234E14A621180098626B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0596234F14A621180098626B /* LogicTests-Info.plist */,
+				0596235014A621180098626B /* InfoPlist.strings */,
+				0596235614A621180098626B /* LogicTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		05C9B07B1435C90700343267 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +339,7 @@
 			children = (
 				05D8D7601455972C00D1218E /* README.md */,
 				05086E6F143BB8AC008A8411 /* BugSense-iOS */,
+				0596234D14A621180098626B /* LogicTests */,
 				05D58BB2142CC4A400BEE267 /* Frameworks */,
 				05D58BB1142CC4A400BEE267 /* Products */,
 				05D8D75B1455972300D1218E /* Documentation */,
@@ -306,6 +351,7 @@
 			children = (
 				05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */,
 				05FCB73514929FE500D1B469 /* libBugSense-iOS.a */,
+				0596234614A621180098626B /* LogicTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -314,6 +360,9 @@
 			isa = PBXGroup;
 			children = (
 				05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */,
+				0596234714A621180098626B /* SenTestingKit.framework */,
+				0596234914A621180098626B /* UIKit.framework */,
+				0596234B14A621180098626B /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -370,6 +419,24 @@
 			productReference = 05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */;
 			productType = "com.apple.product-type.framework.static";
 		};
+		0596234514A621180098626B /* LogicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0596235714A621180098626B /* Build configuration list for PBXNativeTarget "LogicTests" */;
+			buildPhases = (
+				0596234114A621180098626B /* Sources */,
+				0596234214A621180098626B /* Frameworks */,
+				0596234314A621180098626B /* Resources */,
+				0596234414A621180098626B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LogicTests;
+			productName = LogicTests;
+			productReference = 0596234614A621180098626B /* LogicTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 05FCB73E14929FE500D1B469 /* Build configuration list for PBXNativeTarget "BugSense-iOS Static Library" */;
@@ -417,6 +484,7 @@
 			targets = (
 				05086E6C143BB8AB008A8411 /* BugSense-iOS */,
 				05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */,
+				0596234514A621180098626B /* LogicTests */,
 			);
 		};
 /* End PBXProject section */
@@ -524,6 +592,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0596234314A621180098626B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0596235214A621180098626B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		05FCB7521492A44D00D1B469 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,6 +637,19 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]\nthen\n    echo \"ONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM}: Skipping other platform build\"\nelse\n    # Make sure the other platform gets built\n    \n    echo \"Build other platform\"\n# echo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\nif [[ \"$UFW_OTHER_PLATFORM\" = \"iphonesimulator\" ]]\nthen\n    xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" ARCHS=i386 -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\nelse\n    xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\nfi\n\n#    xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n    \n    \n    # Build the fat static library binary\n    \necho \"Create universal static library\"\n    \n    echo \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\n\"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n    \n    echo mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n    mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]\nthen\n    # Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n    \n    echo \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n    \n    echo rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    echo cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nfi\n";
 		};
+		0596234414A621180098626B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -580,6 +669,14 @@
 				05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */,
 				05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */,
 				05B4E6381497A44F00D3EE63 /* BugSenseDataDispatcher.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0596234114A621180098626B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0596235514A621180098626B /* LogicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +722,14 @@
 			);
 			name = InfoPlist.strings;
 			path = "../BugSense-iOS-Universal";
+			sourceTree = "<group>";
+		};
+		0596235014A621180098626B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0596235114A621180098626B /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -686,6 +791,24 @@
 				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		0596235814A621180098626B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -771,6 +894,13 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0596235714A621180098626B /* Build configuration list for PBXNativeTarget "LogicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0596235814A621180098626B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		05D58BAA142CC4A400BEE267 /* Build configuration list for PBXProject "BugSense-iOS" */ = {
 			isa = XCConfigurationList;
