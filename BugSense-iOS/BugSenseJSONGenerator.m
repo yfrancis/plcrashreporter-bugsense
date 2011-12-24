@@ -307,6 +307,60 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) languagesForReport:(PLCrashReport *)report {
+    CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
+    CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
+    if (bundleInfoDict != NULL) {
+        NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
+        CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
+        if (baseLanguage) {
+            [languages appendString:(NSString *)baseLanguage];
+        }
+        
+        CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
+        if (allLanguages) {
+            [languages appendString:(NSString *)allLanguages];
+        }
+        
+        if (languages) {
+            return languages;
+        } else {
+            return @"";
+        }
+    } else {
+        return @"";
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
++ (NSString *) languages {
+    CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)[NSBundle mainBundle].bundleIdentifier);
+    CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
+    if (bundleInfoDict != NULL) {
+        NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
+        CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
+        if (baseLanguage) {
+            [languages appendString:(NSString *)baseLanguage];
+        }
+        
+        CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
+        if (allLanguages) {
+            [languages appendString:(NSString *)allLanguages];
+        }
+        
+        if (languages) {
+            return languages;
+        } else {
+            return @"";
+        }
+    } else {
+        return @"";
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report userDictionary:(NSDictionary *)userDictionary {
     if (!report) {
         return nil;
@@ -341,24 +395,8 @@
         }
         
         [application_environment setObject:[self carrierName] forKey:@"carrier"];
-
-        CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
-        CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
-        if (bundleInfoDict != NULL) {
-            NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
-            CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
-            if (baseLanguage) {
-                [languages appendString:(NSString *)baseLanguage];
-            }
-            
-            CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
-            if (allLanguages) {
-                [languages appendString:(NSString *)allLanguages];
-            }
-            if (languages) {
-                [application_environment setObject:(NSString *)languages forKey:@"languages"];
-            }
-        }
+        
+        [application_environment setObject:[self languagesForReport:report] forKey:@"languages"];
         
         // ----locale
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
@@ -576,23 +614,7 @@
         
         [application_environment setObject:[self carrierName] forKey:@"carrier"];
         
-        CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)[NSBundle mainBundle].bundleIdentifier);
-        CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
-        if (bundleInfoDict != NULL) {
-            NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
-            CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
-            if (baseLanguage) {
-                [languages appendString:(NSString *)baseLanguage];
-            }
-            
-            CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
-            if (allLanguages) {
-                [languages appendString:(NSString *)allLanguages];
-            }
-            if (languages) {
-                [application_environment setObject:(NSString *)languages forKey:@"languages"];
-            }
-        }
+        [application_environment setObject:[self languages] forKey:@"languages"];
         
         // ----locale
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
