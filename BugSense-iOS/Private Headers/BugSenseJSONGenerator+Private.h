@@ -33,6 +33,9 @@
 @interface BugSenseJSONGenerator (Private)
 
 + (NSString *) frameworkVersion;
++ (NSString *) frameworkPlatform;
++ (NSString *) applicationNameForReport:(PLCrashReport *)report;
++ (NSString *) applicationName;
 
 @end
 

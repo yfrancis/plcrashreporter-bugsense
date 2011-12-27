@@ -50,7 +50,22 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) testFrameworkVersion {
-    STAssertNotNil([BugSenseJSONGenerator frameworkVersion], @"+frameworkVersion returns nil");
+    STAssertEqualObjects([BugSenseJSONGenerator frameworkVersion], kBugSenseFrameworkVersion, 
+        @"+frameworkVersion doesn't return the version constant");
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) testFrameworkPlatform {
+    STAssertEqualObjects([BugSenseJSONGenerator frameworkPlatform], kBugSensePlatform, 
+        @"+frameworkPlatform doesn't return the platform constant");
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) testApplicationName {
+    
+}
+
 
 @end
