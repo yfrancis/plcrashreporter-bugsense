@@ -31,28 +31,26 @@
  */
 
 #import "JSONGeneratorLogicTests.h"
+#import "BugSenseJSONGenerator.h"
+#import "BugSenseJSONGenerator+Private.h"
 
 @implementation JSONGeneratorLogicTests
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) setUp {
     [super setUp];
-    
-    // Set-up code here.
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) tearDown {
-    // Tear-down code here.
-    
     [super tearDown];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) testExample {
-    STFail(@"Unit tests are not implemented yet in JSONGeneratorLogicTests");
+- (void) testFrameworkVersion {
+    STAssertNotNil([BugSenseJSONGenerator frameworkVersion], @"+frameworkVersion returns nil");
 }
 
 @end

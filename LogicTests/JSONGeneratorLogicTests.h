@@ -31,10 +31,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "BugSenseJSONGenerator.h"
 
-@interface JSONGeneratorLogicTests : SenTestCase {
-    BugSenseJSONGenerator *jsonGenerator;
-}
+@interface JSONGeneratorLogicTests : SenTestCase
 
 @end

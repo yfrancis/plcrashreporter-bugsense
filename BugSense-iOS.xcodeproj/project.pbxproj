@@ -8,149 +8,174 @@
 
 /* Begin PBXBuildFile section */
 		05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		055CBBD714A9D8D4009710F8 /* BSAFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBC914A9D8D4009710F8 /* BSAFHTTPRequestOperation.h */; };
 		055CBBD814A9D8D4009710F8 /* BSAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCA14A9D8D4009710F8 /* BSAFHTTPRequestOperation.m */; };
-		055CBBD914A9D8D4009710F8 /* BSAFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCB14A9D8D4009710F8 /* BSAFJSONRequestOperation.h */; };
 		055CBBDA14A9D8D4009710F8 /* BSAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCC14A9D8D4009710F8 /* BSAFJSONRequestOperation.m */; };
-		055CBBDB14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCD14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.h */; };
 		055CBBDC14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCE14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m */; };
-		055CBBDD14A9D8D4009710F8 /* BSAFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCF14A9D8D4009710F8 /* BSAFRestClient.h */; };
 		055CBBDE14A9D8D4009710F8 /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD014A9D8D4009710F8 /* BSAFRestClient.m */; };
-		055CBBDF14A9D8D4009710F8 /* NSData+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBD114A9D8D4009710F8 /* NSData+AFNetworking.h */; };
-		055CBBE014A9D8D4009710F8 /* NSData+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD214A9D8D4009710F8 /* NSData+AFNetworking.m */; };
-		055CBBE114A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBD314A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h */; };
 		055CBBE214A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD414A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m */; };
-		055CBBE314A9D8D4009710F8 /* NSString+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBD514A9D8D4009710F8 /* NSString+AFNetworking.h */; };
 		055CBBE414A9D8D4009710F8 /* NSString+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD614A9D8D4009710F8 /* NSString+AFNetworking.m */; };
-		055CBBE714A9D8EA009710F8 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBE514A9D8EA009710F8 /* JSONKit.h */; };
 		055CBBE814A9D8EA009710F8 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBE614A9D8EA009710F8 /* JSONKit.m */; };
-		055CBBEB14A9D8FB009710F8 /* BSReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBE914A9D8FB009710F8 /* BSReachability.h */; };
 		055CBBEC14A9D8FB009710F8 /* BSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBEA14A9D8FB009710F8 /* BSReachability.m */; };
+		055CBC0714A9E0A5009710F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 055CBC0614A9E0A5009710F8 /* Foundation.framework */; };
+		055CBC0914A9E0B0009710F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 055CBC0814A9E0B0009710F8 /* UIKit.framework */; };
+		055CBC7114A9E3E8009710F8 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055CBC3D14A9E355009710F8 /* libCrashReporter-iphoneos.a */; };
 		058D4C11143BC2AD002A01CA /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 		0596234814A621180098626B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234714A621180098626B /* SenTestingKit.framework */; };
-		0596234A14A621180098626B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234914A621180098626B /* UIKit.framework */; };
-		0596234C14A621180098626B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0596234B14A621180098626B /* Foundation.framework */; };
 		0596235214A621180098626B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0596235014A621180098626B /* InfoPlist.strings */; };
 		0596235514A621180098626B /* JSONGeneratorLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596235414A621180098626B /* JSONGeneratorLogicTests.m */; };
 		059964F51497F3FC008157E9 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
+		05B0BBC514A9F37A003C81B2 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
+		05B0BBC614A9F37A003C81B2 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
+		05B0BBC714A9F37A003C81B2 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
+		05B0BBC814A9F37A003C81B2 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
+		05B0BBC914A9F37A003C81B2 /* BSAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCA14A9D8D4009710F8 /* BSAFHTTPRequestOperation.m */; };
+		05B0BBCA14A9F37A003C81B2 /* BSAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCC14A9D8D4009710F8 /* BSAFJSONRequestOperation.m */; };
+		05B0BBCB14A9F37A003C81B2 /* BSAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBCE14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m */; };
+		05B0BBCC14A9F37A003C81B2 /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD014A9D8D4009710F8 /* BSAFRestClient.m */; };
+		05B0BBCE14A9F37A003C81B2 /* NSMutableURLRequest+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD414A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m */; };
+		05B0BBCF14A9F37A003C81B2 /* NSString+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBD614A9D8D4009710F8 /* NSString+AFNetworking.m */; };
+		05B0BBD014A9F37A003C81B2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBE614A9D8EA009710F8 /* JSONKit.m */; };
+		05B0BBD114A9F37A003C81B2 /* BSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 055CBBEA14A9D8FB009710F8 /* BSReachability.m */; };
+		05B0BBD314A9F37A003C81B2 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055CBC3D14A9E355009710F8 /* libCrashReporter-iphoneos.a */; };
+		05B0BBD514A9F37A003C81B2 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBD714A9F37A003C81B2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
+		05B0BBDD14A9F3F1003C81B2 /* BugSenseSymbolicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBDE14A9F3F1003C81B2 /* BugSenseJSONGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B4E62F14979C9A00D3EE63 /* BugSenseJSONGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBDF14A9F3F1003C81B2 /* BugSenseDataDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE014A9F3F1003C81B2 /* BSAFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBC914A9D8D4009710F8 /* BSAFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE114A9F3F1003C81B2 /* BSAFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCB14A9D8D4009710F8 /* BSAFJSONRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE214A9F3F1003C81B2 /* BSAFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCD14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE314A9F3F1003C81B2 /* BSAFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBCF14A9D8D4009710F8 /* BSAFRestClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE514A9F3F1003C81B2 /* NSMutableURLRequest+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBD314A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE614A9F3F1003C81B2 /* NSString+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBD514A9D8D4009710F8 /* NSString+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE714A9F3F1003C81B2 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBE514A9D8EA009710F8 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE814A9F3F1003C81B2 /* BSReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBE914A9D8FB009710F8 /* BSReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBE914A9F3FB003C81B2 /* BugSenseJSONGenerator+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBEE14A9DA99009710F8 /* BugSenseJSONGenerator+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05B0BBEC14A9F4D3003C81B2 /* BugSense-iOS-ForTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */; };
+		05B0BC0C14A9F5FE003C81B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B0BC0B14A9F5FE003C81B2 /* SystemConfiguration.framework */; };
 		05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
 		05B4E6331497A01200D3EE63 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 		05B4E6341497A01200D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
 		05B4E6381497A44F00D3EE63 /* BugSenseDataDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */; };
-		05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 		05FCB7441492A3F800D1B469 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
-		05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 		05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 		05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		05086E52143BB348008A8411 /* PBXContainerItemProxy */ = {
+		055CBC3614A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 052A45CF136353FB00987004;
-			remoteInfo = "DemoCrash-iOS-Device";
-		};
-		05086E54143BB348008A8411 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 052A464F136355FD00987004;
-			remoteInfo = "DemoCrash-iOS-Simulator";
-		};
-		05C9B0921435C90800343267 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05E731F30EFA1AAB005EDFB7;
 			remoteInfo = "CrashReporter-MacOSX-Static";
 		};
-		05C9B0941435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC3814A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = "CrashReporter-MacOSX";
 		};
-		05C9B0961435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC3A14A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 058812B91040582D009128FB;
-			remoteInfo = "CrashReporter-iPhone";
+			remoteInfo = "CrashReporter-iOS";
 		};
-		05C9B0981435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC3C14A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05CD31520EE936A9000FDE88;
-			remoteInfo = "CrashReporter-iPhoneOS";
+			remoteInfo = "CrashReporter-iOS-Device";
 		};
-		05C9B09A1435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC3E14A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05CD31630EE93905000FDE88;
-			remoteInfo = "CrashReporter-iPhoneSimulator";
+			remoteInfo = "CrashReporter-iOS-Simulator";
 		};
-		05C9B09C1435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4014A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05E731E30EFA1A3E005EDFB7;
 			remoteInfo = plcrashutil;
 		};
-		05C9B09E1435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4214A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05CD32690EE93DC3000FDE88;
 			remoteInfo = "Tests-MacOSX";
 		};
-		05C9B0A01435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4414A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05CD32A90EE94062000FDE88;
-			remoteInfo = "Tests-iPhoneSimulator";
+			remoteInfo = "Tests-iOS-Simulator";
 		};
-		05C9B0A21435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4614A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05CD33240EE94439000FDE88;
-			remoteInfo = "Tests-iPhoneOS";
+			remoteInfo = "Tests-iOS-Device";
 		};
-		05C9B0A41435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4814A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 05F40CE70EF7AB80008050CF;
 			remoteInfo = DemoCrash;
 		};
-		05C9B0A61435C90800343267 /* PBXContainerItemProxy */ = {
+		055CBC4A14A9E355009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 052A45CF136353FB00987004;
+			remoteInfo = "DemoCrash-iOS-Device";
+		};
+		055CBC4C14A9E355009710F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 052A464F136355FD00987004;
+			remoteInfo = "DemoCrash-iOS-Simulator";
+		};
+		055CBC4E14A9E355009710F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 050DE24D0F61B80B00152ED3;
 			remoteInfo = "Fuzz Testing";
 		};
-		05F985F514476EEA00D65AC0 /* PBXContainerItemProxy */ = {
+		055CBC6F14A9E3DA009710F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
 			remoteInfo = "CrashReporter-iOS-Device";
 		};
-		05FCB7411492A34C00D1B469 /* PBXContainerItemProxy */ = {
+		05B0BBC214A9F37A003C81B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			containerPortal = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
 			remoteInfo = "CrashReporter-iOS-Device";
+		};
+		05B0BBEA14A9F4CA003C81B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BA7142CC4A400BEE267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05B0BBC014A9F37A003C81B2;
+			remoteInfo = "BugSense-iOS (for tests)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -166,8 +191,6 @@
 		055CBBCE14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSAFNetworkActivityIndicatorManager.m; path = "BugSense-iOS/Supporting Files/AFNetworking/BSAFNetworkActivityIndicatorManager.m"; sourceTree = SOURCE_ROOT; };
 		055CBBCF14A9D8D4009710F8 /* BSAFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSAFRestClient.h; path = "BugSense-iOS/Supporting Files/AFNetworking/BSAFRestClient.h"; sourceTree = SOURCE_ROOT; };
 		055CBBD014A9D8D4009710F8 /* BSAFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSAFRestClient.m; path = "BugSense-iOS/Supporting Files/AFNetworking/BSAFRestClient.m"; sourceTree = SOURCE_ROOT; };
-		055CBBD114A9D8D4009710F8 /* NSData+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+AFNetworking.h"; path = "BugSense-iOS/Supporting Files/AFNetworking/NSData+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
-		055CBBD214A9D8D4009710F8 /* NSData+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+AFNetworking.m"; path = "BugSense-iOS/Supporting Files/AFNetworking/NSData+AFNetworking.m"; sourceTree = SOURCE_ROOT; };
 		055CBBD314A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableURLRequest+AFNetworking.h"; path = "BugSense-iOS/Supporting Files/AFNetworking/NSMutableURLRequest+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
 		055CBBD414A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableURLRequest+AFNetworking.m"; path = "BugSense-iOS/Supporting Files/AFNetworking/NSMutableURLRequest+AFNetworking.m"; sourceTree = SOURCE_ROOT; };
 		055CBBD514A9D8D4009710F8 /* NSString+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AFNetworking.h"; path = "BugSense-iOS/Supporting Files/AFNetworking/NSString+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
@@ -176,23 +199,26 @@
 		055CBBE614A9D8EA009710F8 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = "BugSense-iOS/Supporting Files/JSONKit/JSONKit.m"; sourceTree = SOURCE_ROOT; };
 		055CBBE914A9D8FB009710F8 /* BSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSReachability.h; path = "BugSense-iOS/Supporting Files/Reachability/BSReachability.h"; sourceTree = SOURCE_ROOT; };
 		055CBBEA14A9D8FB009710F8 /* BSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSReachability.m; path = "BugSense-iOS/Supporting Files/Reachability/BSReachability.m"; sourceTree = SOURCE_ROOT; };
+		055CBBEE14A9DA99009710F8 /* BugSenseJSONGenerator+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseJSONGenerator+Private.h"; sourceTree = "<group>"; };
+		055CBC0614A9E0A5009710F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		055CBC0814A9E0B0009710F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashReporter.xcodeproj; path = "BugSense-iOS/Frameworks/CrashReporter/CrashReporter.xcodeproj"; sourceTree = "<group>"; };
 		058D4C4A143BC2EE002A01CA /* BugSense-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "BugSense-iOS-Info.plist"; path = "BugSense-iOS/BugSense-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BugSense-iOS-Prefix.pch"; path = "BugSense-iOS/BugSense-iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		058D4C4D143BC2EE002A01CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "BugSense-iOS/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
 		0596234614A621180098626B /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0596234714A621180098626B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		0596234914A621180098626B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		0596234B14A621180098626B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		0596234F14A621180098626B /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		0596235114A621180098626B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0596235314A621180098626B /* JSONGeneratorLogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONGeneratorLogicTests.h; sourceTree = "<group>"; };
 		0596235414A621180098626B /* JSONGeneratorLogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONGeneratorLogicTests.m; sourceTree = "<group>"; };
 		0596235614A621180098626B /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
+		05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = "BugSense-iOS-ForTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05B0BC0B14A9F5FE003C81B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05B4E62F14979C9A00D3EE63 /* BugSenseJSONGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseJSONGenerator.h; path = "BugSense-iOS/BugSenseJSONGenerator.h"; sourceTree = SOURCE_ROOT; };
 		05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseJSONGenerator.m; path = "BugSense-iOS/BugSenseJSONGenerator.m"; sourceTree = SOURCE_ROOT; };
 		05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseDataDispatcher.h; path = "BugSense-iOS/BugSenseDataDispatcher.h"; sourceTree = SOURCE_ROOT; };
 		05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseDataDispatcher.m; path = "BugSense-iOS/BugSenseDataDispatcher.m"; sourceTree = SOURCE_ROOT; };
-		05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashReporter.xcodeproj; path = Frameworks/CrashReporter/CrashReporter.xcodeproj; sourceTree = "<group>"; };
 		05D8D75C1455972300D1218E /* How to work with BugSense.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "How to work with BugSense.md"; sourceTree = "<group>"; };
 		05D8D75D1455972300D1218E /* Using the BugSense iOS library.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Using the BugSense iOS library.md"; sourceTree = "<group>"; };
 		05D8D7601455972C00D1218E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -206,7 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */,
+				055CBC7114A9E3E8009710F8 /* libCrashReporter-iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,9 +240,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05B0BC0C14A9F5FE003C81B2 /* SystemConfiguration.framework in Frameworks */,
+				055CBC0714A9E0A5009710F8 /* Foundation.framework in Frameworks */,
+				055CBC0914A9E0B0009710F8 /* UIKit.framework in Frameworks */,
+				05B0BBEC14A9F4D3003C81B2 /* BugSense-iOS-ForTests.framework in Frameworks */,
 				0596234814A621180098626B /* SenTestingKit.framework in Frameworks */,
-				0596234A14A621180098626B /* UIKit.framework in Frameworks */,
-				0596234C14A621180098626B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05B0BBD214A9F37A003C81B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05B0BBD314A9F37A003C81B2 /* libCrashReporter-iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +260,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05FCB7501492A41800D1B469 /* libCrashReporter-iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,10 +277,51 @@
 				05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */,
 				05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */,
 				05B4E6361497A44F00D3EE63 /* BugSenseDataDispatcher.m */,
+				055CBBED14A9DA37009710F8 /* Private Headers */,
 				058D4C12143BC2D6002A01CA /* Supporting Files */,
 			);
 			name = "BugSense-iOS";
 			path = "BugSense-iOS-Universal";
+			sourceTree = "<group>";
+		};
+		055CBBED14A9DA37009710F8 /* Private Headers */ = {
+			isa = PBXGroup;
+			children = (
+				055CBBEE14A9DA99009710F8 /* BugSenseJSONGenerator+Private.h */,
+			);
+			name = "Private Headers";
+			path = "BugSense-iOS/Private Headers";
+			sourceTree = SOURCE_ROOT;
+		};
+		055CBC0A14A9E111009710F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0596234714A621180098626B /* SenTestingKit.framework */,
+				055CBC0814A9E0B0009710F8 /* UIKit.framework */,
+				055CBC0614A9E0A5009710F8 /* Foundation.framework */,
+				05B0BC0B14A9F5FE003C81B2 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		055CBC2414A9E2FC009710F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				055CBC3714A9E355009710F8 /* libCrashReporter-MacOSX-Static.a */,
+				055CBC3914A9E355009710F8 /* CrashReporter.framework */,
+				055CBC3B14A9E355009710F8 /* CrashReporter.framework */,
+				055CBC3D14A9E355009710F8 /* libCrashReporter-iphoneos.a */,
+				055CBC3F14A9E355009710F8 /* libCrashReporter-iphonesimulator.a */,
+				055CBC4114A9E355009710F8 /* plcrashutil */,
+				055CBC4314A9E355009710F8 /* Tests-MacOSX.octest */,
+				055CBC4514A9E355009710F8 /* Tests-iOS-Simulator.app */,
+				055CBC4714A9E355009710F8 /* Tests-iOS-Device.app */,
+				055CBC4914A9E355009710F8 /* DemoCrash.app */,
+				055CBC4B14A9E355009710F8 /* DemoCrash-iOS-Device.app */,
+				055CBC4D14A9E355009710F8 /* DemoCrash-iOS-Simulator.app */,
+				055CBC4F14A9E355009710F8 /* Fuzz Testing */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		058D4C12143BC2D6002A01CA /* Supporting Files */ = {
@@ -272,8 +348,6 @@
 				055CBBCE14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m */,
 				055CBBCF14A9D8D4009710F8 /* BSAFRestClient.h */,
 				055CBBD014A9D8D4009710F8 /* BSAFRestClient.m */,
-				055CBBD114A9D8D4009710F8 /* NSData+AFNetworking.h */,
-				055CBBD214A9D8D4009710F8 /* NSData+AFNetworking.m */,
 				055CBBD314A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h */,
 				055CBBD414A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m */,
 				055CBBD514A9D8D4009710F8 /* NSString+AFNetworking.h */,
@@ -306,6 +380,7 @@
 				0596235314A621180098626B /* JSONGeneratorLogicTests.h */,
 				0596235414A621180098626B /* JSONGeneratorLogicTests.m */,
 				0596234E14A621180098626B /* Supporting Files */,
+				055CBC0A14A9E111009710F8 /* Frameworks */,
 			);
 			path = LogicTests;
 			sourceTree = "<group>";
@@ -318,26 +393,6 @@
 				0596235614A621180098626B /* LogicTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		05C9B07B1435C90700343267 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				05C9B0931435C90800343267 /* libCrashReporter-MacOSX-Static.a */,
-				05C9B0951435C90800343267 /* CrashReporter.framework */,
-				05C9B0971435C90800343267 /* CrashReporter.framework */,
-				05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */,
-				05C9B09B1435C90800343267 /* libCrashReporter-iphonesimulator.a */,
-				05C9B09D1435C90800343267 /* plcrashutil */,
-				05C9B09F1435C90800343267 /* Tests-MacOSX.octest */,
-				05C9B0A11435C90800343267 /* Tests-iOS-Simulator.app */,
-				05C9B0A31435C90800343267 /* Tests-iOS-Device.app */,
-				05C9B0A51435C90800343267 /* DemoCrash.app */,
-				05086E53143BB348008A8411 /* DemoCrash-iOS-Device.app */,
-				05086E55143BB348008A8411 /* DemoCrash-iOS-Simulator.app */,
-				05C9B0A71435C90800343267 /* Fuzz Testing */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		05D58BA5142CC4A400BEE267 = {
@@ -358,6 +413,7 @@
 				05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */,
 				05FCB73514929FE500D1B469 /* libBugSense-iOS.a */,
 				0596234614A621180098626B /* LogicTests.octest */,
+				05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -365,10 +421,7 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */,
-				0596234714A621180098626B /* SenTestingKit.framework */,
-				0596234914A621180098626B /* UIKit.framework */,
-				0596234B14A621180098626B /* Foundation.framework */,
+				055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -390,15 +443,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */,
-				055CBBD714A9D8D4009710F8 /* BSAFHTTPRequestOperation.h in Headers */,
-				055CBBD914A9D8D4009710F8 /* BSAFJSONRequestOperation.h in Headers */,
-				055CBBDB14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.h in Headers */,
-				055CBBDD14A9D8D4009710F8 /* BSAFRestClient.h in Headers */,
-				055CBBDF14A9D8D4009710F8 /* NSData+AFNetworking.h in Headers */,
-				055CBBE114A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.h in Headers */,
-				055CBBE314A9D8D4009710F8 /* NSString+AFNetworking.h in Headers */,
-				055CBBE714A9D8EA009710F8 /* JSONKit.h in Headers */,
-				055CBBEB14A9D8FB009710F8 /* BSReachability.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05B0BBD414A9F37A003C81B2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05B0BBD514A9F37A003C81B2 /* BugSenseCrashController.h in Headers */,
+				05B0BBE914A9F3FB003C81B2 /* BugSenseJSONGenerator+Private.h in Headers */,
+				05B0BBDD14A9F3F1003C81B2 /* BugSenseSymbolicator.h in Headers */,
+				05B0BBDE14A9F3F1003C81B2 /* BugSenseJSONGenerator.h in Headers */,
+				05B0BBDF14A9F3F1003C81B2 /* BugSenseDataDispatcher.h in Headers */,
+				05B0BBE014A9F3F1003C81B2 /* BSAFHTTPRequestOperation.h in Headers */,
+				05B0BBE114A9F3F1003C81B2 /* BSAFJSONRequestOperation.h in Headers */,
+				05B0BBE214A9F3F1003C81B2 /* BSAFNetworkActivityIndicatorManager.h in Headers */,
+				05B0BBE314A9F3F1003C81B2 /* BSAFRestClient.h in Headers */,
+				05B0BBE514A9F3F1003C81B2 /* NSMutableURLRequest+AFNetworking.h in Headers */,
+				05B0BBE614A9F3F1003C81B2 /* NSString+AFNetworking.h in Headers */,
+				05B0BBE714A9F3F1003C81B2 /* JSONKit.h in Headers */,
+				05B0BBE814A9F3F1003C81B2 /* BSReachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +491,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				05F985F614476EEA00D65AC0 /* PBXTargetDependency */,
+				055CBC7014A9E3DA009710F8 /* PBXTargetDependency */,
 			);
 			name = "BugSense-iOS";
 			productName = "BugSense-iOS-Universal";
@@ -446,11 +510,31 @@
 			buildRules = (
 			);
 			dependencies = (
+				05B0BBEB14A9F4CA003C81B2 /* PBXTargetDependency */,
 			);
 			name = LogicTests;
 			productName = LogicTests;
 			productReference = 0596234614A621180098626B /* LogicTests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		05B0BBC014A9F37A003C81B2 /* BugSense-iOS (for tests) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05B0BBD914A9F37A003C81B2 /* Build configuration list for PBXNativeTarget "BugSense-iOS (for tests)" */;
+			buildPhases = (
+				05B0BBC414A9F37A003C81B2 /* Sources */,
+				05B0BBD214A9F37A003C81B2 /* Frameworks */,
+				05B0BBD414A9F37A003C81B2 /* Headers */,
+				05B0BBD614A9F37A003C81B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05B0BBC114A9F37A003C81B2 /* PBXTargetDependency */,
+			);
+			name = "BugSense-iOS (for tests)";
+			productName = "BugSense-iOS-Universal";
+			productReference = 05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */;
+			productType = "com.apple.product-type.framework.static";
 		};
 		05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */ = {
 			isa = PBXNativeTarget;
@@ -464,7 +548,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				05FCB7421492A34C00D1B469 /* PBXTargetDependency */,
 			);
 			name = "BugSense-iOS Static Library";
 			productName = "BugSense-iOS Static Library for MonoTouch";
@@ -491,109 +574,110 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 05C9B07B1435C90700343267 /* Products */;
-					ProjectRef = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+					ProductGroup = 055CBC2414A9E2FC009710F8 /* Products */;
+					ProjectRef = 055CBC2314A9E2FC009710F8 /* CrashReporter.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
 				05086E6C143BB8AB008A8411 /* BugSense-iOS */,
 				05FCB73414929FE500D1B469 /* BugSense-iOS Static Library */,
+				05B0BBC014A9F37A003C81B2 /* BugSense-iOS (for tests) */,
 				0596234514A621180098626B /* LogicTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		05086E53143BB348008A8411 /* DemoCrash-iOS-Device.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "DemoCrash-iOS-Device.app";
-			remoteRef = 05086E52143BB348008A8411 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05086E55143BB348008A8411 /* DemoCrash-iOS-Simulator.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "DemoCrash-iOS-Simulator.app";
-			remoteRef = 05086E54143BB348008A8411 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05C9B0931435C90800343267 /* libCrashReporter-MacOSX-Static.a */ = {
+		055CBC3714A9E355009710F8 /* libCrashReporter-MacOSX-Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCrashReporter-MacOSX-Static.a";
-			remoteRef = 05C9B0921435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC3614A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0951435C90800343267 /* CrashReporter.framework */ = {
+		055CBC3914A9E355009710F8 /* CrashReporter.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CrashReporter.framework;
-			remoteRef = 05C9B0941435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC3814A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0971435C90800343267 /* CrashReporter.framework */ = {
+		055CBC3B14A9E355009710F8 /* CrashReporter.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CrashReporter.framework;
-			remoteRef = 05C9B0961435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC3A14A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */ = {
+		055CBC3D14A9E355009710F8 /* libCrashReporter-iphoneos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCrashReporter-iphoneos.a";
-			remoteRef = 05C9B0981435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC3C14A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B09B1435C90800343267 /* libCrashReporter-iphonesimulator.a */ = {
+		055CBC3F14A9E355009710F8 /* libCrashReporter-iphonesimulator.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCrashReporter-iphonesimulator.a";
-			remoteRef = 05C9B09A1435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC3E14A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B09D1435C90800343267 /* plcrashutil */ = {
+		055CBC4114A9E355009710F8 /* plcrashutil */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = plcrashutil;
-			remoteRef = 05C9B09C1435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4014A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B09F1435C90800343267 /* Tests-MacOSX.octest */ = {
+		055CBC4314A9E355009710F8 /* Tests-MacOSX.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "Tests-MacOSX.octest";
-			remoteRef = 05C9B09E1435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4214A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0A11435C90800343267 /* Tests-iOS-Simulator.app */ = {
+		055CBC4514A9E355009710F8 /* Tests-iOS-Simulator.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Tests-iOS-Simulator.app";
-			remoteRef = 05C9B0A01435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4414A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0A31435C90800343267 /* Tests-iOS-Device.app */ = {
+		055CBC4714A9E355009710F8 /* Tests-iOS-Device.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Tests-iOS-Device.app";
-			remoteRef = 05C9B0A21435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4614A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0A51435C90800343267 /* DemoCrash.app */ = {
+		055CBC4914A9E355009710F8 /* DemoCrash.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = DemoCrash.app;
-			remoteRef = 05C9B0A41435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4814A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05C9B0A71435C90800343267 /* Fuzz Testing */ = {
+		055CBC4B14A9E355009710F8 /* DemoCrash-iOS-Device.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "DemoCrash-iOS-Device.app";
+			remoteRef = 055CBC4A14A9E355009710F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		055CBC4D14A9E355009710F8 /* DemoCrash-iOS-Simulator.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "DemoCrash-iOS-Simulator.app";
+			remoteRef = 055CBC4C14A9E355009710F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		055CBC4F14A9E355009710F8 /* Fuzz Testing */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "Fuzz Testing";
-			remoteRef = 05C9B0A61435C90800343267 /* PBXContainerItemProxy */;
+			remoteRef = 055CBC4E14A9E355009710F8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -612,6 +696,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0596235214A621180098626B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05B0BBD614A9F37A003C81B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05B0BBD714A9F37A003C81B2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +772,6 @@
 				055CBBDA14A9D8D4009710F8 /* BSAFJSONRequestOperation.m in Sources */,
 				055CBBDC14A9D8D4009710F8 /* BSAFNetworkActivityIndicatorManager.m in Sources */,
 				055CBBDE14A9D8D4009710F8 /* BSAFRestClient.m in Sources */,
-				055CBBE014A9D8D4009710F8 /* NSData+AFNetworking.m in Sources */,
 				055CBBE214A9D8D4009710F8 /* NSMutableURLRequest+AFNetworking.m in Sources */,
 				055CBBE414A9D8D4009710F8 /* NSString+AFNetworking.m in Sources */,
 				055CBBE814A9D8EA009710F8 /* JSONKit.m in Sources */,
@@ -693,6 +784,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				0596235514A621180098626B /* JSONGeneratorLogicTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05B0BBC414A9F37A003C81B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05B0BBC514A9F37A003C81B2 /* BugSenseCrashController.m in Sources */,
+				05B0BBC614A9F37A003C81B2 /* BugSenseSymbolicator.m in Sources */,
+				05B0BBC714A9F37A003C81B2 /* BugSenseJSONGenerator.m in Sources */,
+				05B0BBC814A9F37A003C81B2 /* BugSenseDataDispatcher.m in Sources */,
+				05B0BBC914A9F37A003C81B2 /* BSAFHTTPRequestOperation.m in Sources */,
+				05B0BBCA14A9F37A003C81B2 /* BSAFJSONRequestOperation.m in Sources */,
+				05B0BBCB14A9F37A003C81B2 /* BSAFNetworkActivityIndicatorManager.m in Sources */,
+				05B0BBCC14A9F37A003C81B2 /* BSAFRestClient.m in Sources */,
+				05B0BBCE14A9F37A003C81B2 /* NSMutableURLRequest+AFNetworking.m in Sources */,
+				05B0BBCF14A9F37A003C81B2 /* NSString+AFNetworking.m in Sources */,
+				05B0BBD014A9F37A003C81B2 /* JSONKit.m in Sources */,
+				05B0BBD114A9F37A003C81B2 /* BSReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,15 +820,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		05F985F614476EEA00D65AC0 /* PBXTargetDependency */ = {
+		055CBC7014A9E3DA009710F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CrashReporter-iOS-Device";
-			targetProxy = 05F985F514476EEA00D65AC0 /* PBXContainerItemProxy */;
+			targetProxy = 055CBC6F14A9E3DA009710F8 /* PBXContainerItemProxy */;
 		};
-		05FCB7421492A34C00D1B469 /* PBXTargetDependency */ = {
+		05B0BBC114A9F37A003C81B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CrashReporter-iOS-Device";
-			targetProxy = 05FCB7411492A34C00D1B469 /* PBXContainerItemProxy */;
+			targetProxy = 05B0BBC214A9F37A003C81B2 /* PBXContainerItemProxy */;
+		};
+		05B0BBEB14A9F4CA003C81B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05B0BBC014A9F37A003C81B2 /* BugSense-iOS (for tests) */;
+			targetProxy = 05B0BBEA14A9F4CA003C81B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -774,8 +889,8 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/Supporting Files\"",
-					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
+					"\"$(SRCROOT)/BugSense-iOS/Supporting Files\"",
+					"\"$(SRCROOT)/BugSense-iOS/Frameworks/CrashReporter/Source\"",
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -814,9 +929,70 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
+					"\"$(SRCROOT)/BugSense-iOS/**",
+				);
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		05B0BBDA14A9F37A003C81B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				BUILD_VARIANTS = normal;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				FRAMEWORK_VERSION = A;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/BugSense-iOS/Supporting Files\"",
+					"\"$(SRCROOT)/BugSense-iOS/Frameworks/CrashReporter/Source\"",
+				);
+				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LLVM_LTO = NO;
+				ORDER_FILE = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRELINK_LIBS = "";
+				PRODUCT_NAME = "BugSense-iOS-ForTests";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SEPARATE_STRIP = NO;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "i386 armv6 armv7";
+				WARNING_CFLAGS = (
+					"-Wconditional-uninitialized",
+					"-Wincompatible-pointer-types",
+				);
+				WARNING_LDFLAGS = "";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
@@ -874,8 +1050,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/Supporting Files\"",
-					"\"$(SRCROOT)/Frameworks/CrashReporter/Source\"",
+					"\"$(SRCROOT)/BugSense-iOS/Supporting Files\"",
+					"\"$(SRCROOT)/BugSense-iOS/Frameworks/CrashReporter/Source\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-mno-thumb";
@@ -907,6 +1083,14 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0596235814A621180098626B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05B0BBD914A9F37A003C81B2 /* Build configuration list for PBXNativeTarget "BugSense-iOS (for tests)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05B0BBDA14A9F37A003C81B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
