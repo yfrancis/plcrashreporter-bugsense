@@ -57,6 +57,9 @@
 		05B0BC1214A9FE1F003C81B2 /* BugSenseCrashController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1114A9FE1F003C81B2 /* BugSenseCrashController+Private.h */; };
 		05B0BC1414A9FE90003C81B2 /* BugSenseSymbolicator+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1314A9FE90003C81B2 /* BugSenseSymbolicator+Private.h */; };
 		05B0BC1614A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1514A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h */; };
+		05B0BC1914A9FFEE003C81B2 /* CrashControllerLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BC1814A9FFEE003C81B2 /* CrashControllerLogicTests.m */; };
+		05B0BC1C14AA0014003C81B2 /* SymbolicatorLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BC1B14AA0014003C81B2 /* SymbolicatorLogicTests.m */; };
+		05B0BC1F14AA0041003C81B2 /* DataDispatcherLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BC1E14AA0041003C81B2 /* DataDispatcherLogicTests.m */; };
 		05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
 		05B4E6331497A01200D3EE63 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 		05B4E6341497A01200D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
@@ -221,6 +224,12 @@
 		05B0BC1114A9FE1F003C81B2 /* BugSenseCrashController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseCrashController+Private.h"; sourceTree = "<group>"; };
 		05B0BC1314A9FE90003C81B2 /* BugSenseSymbolicator+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseSymbolicator+Private.h"; sourceTree = "<group>"; };
 		05B0BC1514A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseDataDispatcher+Private.h"; sourceTree = "<group>"; };
+		05B0BC1714A9FFEE003C81B2 /* CrashControllerLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashControllerLogicTests.h; sourceTree = "<group>"; };
+		05B0BC1814A9FFEE003C81B2 /* CrashControllerLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashControllerLogicTests.m; sourceTree = "<group>"; };
+		05B0BC1A14AA0014003C81B2 /* SymbolicatorLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SymbolicatorLogicTests.h; sourceTree = "<group>"; };
+		05B0BC1B14AA0014003C81B2 /* SymbolicatorLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SymbolicatorLogicTests.m; sourceTree = "<group>"; };
+		05B0BC1D14AA0041003C81B2 /* DataDispatcherLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDispatcherLogicTests.h; sourceTree = "<group>"; };
+		05B0BC1E14AA0041003C81B2 /* DataDispatcherLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDispatcherLogicTests.m; sourceTree = "<group>"; };
 		05B4E62F14979C9A00D3EE63 /* BugSenseJSONGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseJSONGenerator.h; path = "BugSense-iOS/BugSenseJSONGenerator.h"; sourceTree = SOURCE_ROOT; };
 		05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseJSONGenerator.m; path = "BugSense-iOS/BugSenseJSONGenerator.m"; sourceTree = SOURCE_ROOT; };
 		05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseDataDispatcher.h; path = "BugSense-iOS/BugSenseDataDispatcher.h"; sourceTree = SOURCE_ROOT; };
@@ -386,8 +395,14 @@
 		0596234D14A621180098626B /* LogicTests */ = {
 			isa = PBXGroup;
 			children = (
+				05B0BC1714A9FFEE003C81B2 /* CrashControllerLogicTests.h */,
+				05B0BC1814A9FFEE003C81B2 /* CrashControllerLogicTests.m */,
+				05B0BC1A14AA0014003C81B2 /* SymbolicatorLogicTests.h */,
+				05B0BC1B14AA0014003C81B2 /* SymbolicatorLogicTests.m */,
 				0596235314A621180098626B /* JSONGeneratorLogicTests.h */,
 				0596235414A621180098626B /* JSONGeneratorLogicTests.m */,
+				05B0BC1D14AA0041003C81B2 /* DataDispatcherLogicTests.h */,
+				05B0BC1E14AA0041003C81B2 /* DataDispatcherLogicTests.m */,
 				0596234E14A621180098626B /* Supporting Files */,
 				055CBC0A14A9E111009710F8 /* Frameworks */,
 			);
@@ -796,6 +811,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0596235514A621180098626B /* JSONGeneratorLogicTests.m in Sources */,
+				05B0BC1914A9FFEE003C81B2 /* CrashControllerLogicTests.m in Sources */,
+				05B0BC1C14AA0014003C81B2 /* SymbolicatorLogicTests.m in Sources */,
+				05B0BC1F14AA0041003C81B2 /* DataDispatcherLogicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
