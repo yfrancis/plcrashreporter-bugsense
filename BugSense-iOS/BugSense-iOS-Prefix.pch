@@ -2,7 +2,7 @@
  BugSense-iOS-Prefix.pch
  BugSense-iOS
  
- Copyright (c) 2011 BugSense.com
+ Copyright (c) 2011 BugSense Inc.
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -25,8 +25,7 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
  
- Author:
- Nick Toumpelis (Ocean Road Software)
+ Author: Nick Toumpelis, nick@bugsense.com
  
  */
 
