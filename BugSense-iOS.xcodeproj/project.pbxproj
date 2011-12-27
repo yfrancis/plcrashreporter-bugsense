@@ -54,6 +54,9 @@
 		05B0BBE914A9F3FB003C81B2 /* BugSenseJSONGenerator+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 055CBBEE14A9DA99009710F8 /* BugSenseJSONGenerator+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05B0BBEC14A9F4D3003C81B2 /* BugSense-iOS-ForTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */; };
 		05B0BC0C14A9F5FE003C81B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B0BC0B14A9F5FE003C81B2 /* SystemConfiguration.framework */; };
+		05B0BC1214A9FE1F003C81B2 /* BugSenseCrashController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1114A9FE1F003C81B2 /* BugSenseCrashController+Private.h */; };
+		05B0BC1414A9FE90003C81B2 /* BugSenseSymbolicator+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1314A9FE90003C81B2 /* BugSenseSymbolicator+Private.h */; };
+		05B0BC1614A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BC1514A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h */; };
 		05B4E63214979C9A00D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
 		05B4E6331497A01200D3EE63 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
 		05B4E6341497A01200D3EE63 /* BugSenseJSONGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */; };
@@ -215,6 +218,9 @@
 		0596235614A621180098626B /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
 		05B0BBDB14A9F37A003C81B2 /* BugSense-iOS-ForTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = "BugSense-iOS-ForTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05B0BC0B14A9F5FE003C81B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05B0BC1114A9FE1F003C81B2 /* BugSenseCrashController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseCrashController+Private.h"; sourceTree = "<group>"; };
+		05B0BC1314A9FE90003C81B2 /* BugSenseSymbolicator+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseSymbolicator+Private.h"; sourceTree = "<group>"; };
+		05B0BC1514A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSenseDataDispatcher+Private.h"; sourceTree = "<group>"; };
 		05B4E62F14979C9A00D3EE63 /* BugSenseJSONGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseJSONGenerator.h; path = "BugSense-iOS/BugSenseJSONGenerator.h"; sourceTree = SOURCE_ROOT; };
 		05B4E63014979C9A00D3EE63 /* BugSenseJSONGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseJSONGenerator.m; path = "BugSense-iOS/BugSenseJSONGenerator.m"; sourceTree = SOURCE_ROOT; };
 		05B4E6351497A44F00D3EE63 /* BugSenseDataDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseDataDispatcher.h; path = "BugSense-iOS/BugSenseDataDispatcher.h"; sourceTree = SOURCE_ROOT; };
@@ -287,7 +293,10 @@
 		055CBBED14A9DA37009710F8 /* Private Headers */ = {
 			isa = PBXGroup;
 			children = (
+				05B0BC1114A9FE1F003C81B2 /* BugSenseCrashController+Private.h */,
+				05B0BC1314A9FE90003C81B2 /* BugSenseSymbolicator+Private.h */,
 				055CBBEE14A9DA99009710F8 /* BugSenseJSONGenerator+Private.h */,
+				05B0BC1514A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h */,
 			);
 			name = "Private Headers";
 			path = "BugSense-iOS/Private Headers";
@@ -443,6 +452,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */,
+				05B0BC1214A9FE1F003C81B2 /* BugSenseCrashController+Private.h in Headers */,
+				05B0BC1414A9FE90003C81B2 /* BugSenseSymbolicator+Private.h in Headers */,
+				05B0BC1614A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
