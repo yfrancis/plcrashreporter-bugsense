@@ -30,6 +30,10 @@
  
  */
 
+#define kBugSenseFrameworkVersion   @"1.0 (rev4)"
+#define kBugSensePlatform           @"iOS"
+#define kAppNameNotFoundStatus      @"App name not found."
+
 @interface BugSenseJSONGenerator (Private)
 
 + (NSString *) frameworkVersion;
