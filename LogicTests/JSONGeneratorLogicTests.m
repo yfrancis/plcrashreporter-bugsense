@@ -39,11 +39,31 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) setUp {
     [super setUp];
+    
+    /*
+    // Create a temporary log path
+    _logPath = [[NSTemporaryDirectory() 
+        stringByAppendingString:[[NSProcessInfo processInfo] globallyUniqueString]] retain];
+    
+    // Create the test thread
+    plframe_test_thread_spawn(&_thr_args);
+    */
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) tearDown {
+    /*
+    NSError *error;
+    
+    // Delete the file
+    STAssertTrue([[NSFileManager defaultManager] removeItemAtPath:_logPath error:&error], @"Could not remove log file");
+    [_logPath release];
+    
+    // Stop the test thread
+    plframe_test_thread_stop(&_thr_args);
+    */
+     
     [super tearDown];
 }
 
@@ -64,7 +84,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) testApplicationName {
+    STAssertNotNil([BugSenseJSONGenerator applicationName], @"+applicationName returns nil");
     
+    NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
+    NSArray *identifierComponents = [bundleIdentifier componentsSeparatedByString:@"."];
+    NSString *applicationName = [identifierComponents lastObject];
+    BOOL expression = ([BugSenseJSONGenerator applicationName] == applicationName) ||
+                      ([BugSenseJSONGenerator applicationName] == kAppNameNotFoundStatus);
+    STAssertTrue(expression, @"+applicationName doesn't return a proper string");
 }
 
 

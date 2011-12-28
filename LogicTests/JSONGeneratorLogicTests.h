@@ -31,6 +31,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "PLCrashReport.h"
 
 @interface JSONGeneratorLogicTests : SenTestCase
 

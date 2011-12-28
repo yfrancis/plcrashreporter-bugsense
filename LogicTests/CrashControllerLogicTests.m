@@ -32,12 +32,23 @@
 
 #import "CrashControllerLogicTests.h"
 
+#import "BugSenseCrashController.h"
+#import "BugSenseCrashController+Private.h"
+
 @implementation CrashControllerLogicTests
 
-// All code under test must be linked into the Unit Test bundle
-- (void)testMath
-{
-    STAssertTrue((1 + 1) == 2, @"Compiler isn't feeling well today :-(");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) testSingleton {
+    STAssertNotNil([BugSenseCrashController sharedInstanceWithBugSenseAPIKey:@"0000000"], 
+        @"+sharedInstance returned nil");
+    
+    STAssertEqualObjects([BugSenseCrashController sharedInstanceWithBugSenseAPIKey:@"0000000"],
+        [BugSenseCrashController sharedInstanceWithBugSenseAPIKey:@"1111111"],
+            @"+sharedInstance doesn't return a singleton object");
+    
+    BugSenseCrashController *crashController = [BugSenseCrashController sharedInstanceWithBugSenseAPIKey:@"0000000"];
+    [crashController release];
+    STAssertNotNil(crashController, @"The singleton can be released");
 }
 
 @end
