@@ -95,7 +95,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
                     JSON = [[JSONDecoder decoder] objectWithData:data error:&JSONError];
                 }
 #else
-                JSON = [[BSJSONDecoder decoder] objectWithData:data error:&JSONError];
+                JSON = [[JSONDecoder decoder] objectWithData:data error:&JSONError];
 #endif
                 
                 dispatch_sync(dispatch_get_main_queue(), ^(void) {
