@@ -3,7 +3,7 @@
  BugSenseJSONGenerator.m
  BugSense-iOS
  
- Copyright (c) 2011 BugSense.com
+ Copyright (c) 2012 BugSense.com
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -27,6 +27,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  
  Author: Nick Toumpelis, nick@bugsense.com
+ Author: John Lianeris, jl@bugsense.com
  
  */
 
@@ -50,7 +51,7 @@
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
 
-#define kBugSenseFrameworkVersion @"1.0 (rev4)"
+#define kBugSenseFrameworkVersion @"2.0"
 #define kBugSensePlatform @"iOS"
 
 @implementation BugSenseJSONGenerator
@@ -559,6 +560,43 @@
         [request setObject:[self IPAddress] forKey:@"remote_ip"];
         if (userDictionary) {
             [request setObject:userDictionary forKey:@"custom_data"];
+        }
+        
+        // --architecture
+        NSArray *arch = [NSArray arrayWithObjects:@"x86_32", @"x86_64", @"armv6", @"ppc", @"ppc64", @"armv7", @"Unknown", nil];
+        [application_environment setObject:[arch objectAtIndex:report.systemInfo.architecture] forKey:@"architecture"];
+        
+        // --registers & crashed thread number
+        if (crashedThreadInfo) {
+            NSMutableDictionary *registers = [[NSMutableDictionary alloc] initWithCapacity:crashedThreadInfo.registers.count];
+            for (PLCrashReportRegisterInfo *reg in crashedThreadInfo.registers) {
+                [registers setObject:[NSString stringWithFormat:@"0x%" PRIx64, reg.registerValue] forKey:reg.registerName];
+            }
+            [application_environment setObject:registers forKey:@"registers"];
+            
+            [exception setObject:[NSNumber numberWithInteger:crashedThreadInfo.threadNumber] forKey:@"thread_crashed"];
+        }
+        
+        // --signal
+        [exception setObject:report.signalInfo.code forKey:@"signal_code"];
+        [exception setObject:report.signalInfo.name forKey:@"signal_name"];
+        
+        // --image binary info
+        for (PLCrashReportBinaryImageInfo *image in report.images) {
+            NSArray *arr = [image.imageName componentsSeparatedByString:@"/"];
+            
+            if (([arr count] > 6) && [image.imageName hasPrefix:@"/var"]) {
+                
+                NSString *binary_filename = [arr objectAtIndex:6];
+                
+                if ([binary_filename isEqualToString:[self applicationName]]) {
+                    
+                    [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageBaseAddress] forKey:@"image_base_address"];
+                    [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageSize] forKey:@"image_size"];
+                    
+                    [application_environment setObject:image.imageUUID forKey:@"build_uuid"];
+                }
+            }
         }
         
         // root
