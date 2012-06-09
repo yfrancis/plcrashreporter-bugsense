@@ -68,6 +68,10 @@
 		05FCB7511492A43800D1B469 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05FCB7531492A45F00D1B469 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 		05FCB7DD14966D6D00D1B469 /* BugSenseSymbolicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */; };
+		0E65388F158356380059FBA8 /* BSOpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E65388D158356380059FBA8 /* BSOpenUDID.h */; };
+		0E653890158356380059FBA8 /* BSOpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E65388D158356380059FBA8 /* BSOpenUDID.h */; };
+		0E653891158356380059FBA8 /* BSOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E65388E158356380059FBA8 /* BSOpenUDID.m */; };
+		0E653892158356380059FBA8 /* BSOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E65388E158356380059FBA8 /* BSOpenUDID.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +244,8 @@
 		05FCB73514929FE500D1B469 /* libBugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libBugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05FCB7DA14966D6D00D1B469 /* BugSenseSymbolicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseSymbolicator.h; path = "BugSense-iOS/BugSenseSymbolicator.h"; sourceTree = SOURCE_ROOT; };
 		05FCB7DB14966D6D00D1B469 /* BugSenseSymbolicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseSymbolicator.m; path = "BugSense-iOS/BugSenseSymbolicator.m"; sourceTree = SOURCE_ROOT; };
+		0E65388D158356380059FBA8 /* BSOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSOpenUDID.h; path = "BugSense-iOS/Supporting Files/OpenUDID/BSOpenUDID.h"; sourceTree = SOURCE_ROOT; };
+		0E65388E158356380059FBA8 /* BSOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSOpenUDID.m; path = "BugSense-iOS/Supporting Files/OpenUDID/BSOpenUDID.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +354,7 @@
 				058D4C4A143BC2EE002A01CA /* BugSense-iOS-Info.plist */,
 				058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */,
 				058D4C4C143BC2EE002A01CA /* InfoPlist.strings */,
+				0E65388C1583561B0059FBA8 /* OpenUDID */,
 				058D4C13143BC2D6002A01CA /* AFNetworking */,
 				058D4C2A143BC2D6002A01CA /* JSONKit */,
 				058D4C2D143BC2D6002A01CA /* Reachability */,
@@ -459,6 +466,15 @@
 			path = Documentation;
 			sourceTree = "<group>";
 		};
+		0E65388C1583561B0059FBA8 /* OpenUDID */ = {
+			isa = PBXGroup;
+			children = (
+				0E65388D158356380059FBA8 /* BSOpenUDID.h */,
+				0E65388E158356380059FBA8 /* BSOpenUDID.m */,
+			);
+			name = OpenUDID;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -470,6 +486,7 @@
 				05B0BC1214A9FE1F003C81B2 /* BugSenseCrashController+Private.h in Headers */,
 				05B0BC1414A9FE90003C81B2 /* BugSenseSymbolicator+Private.h in Headers */,
 				05B0BC1614A9FED5003C81B2 /* BugSenseDataDispatcher+Private.h in Headers */,
+				0E65388F158356380059FBA8 /* BSOpenUDID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +507,7 @@
 				05B0BBE614A9F3F1003C81B2 /* NSString+AFNetworking.h in Headers */,
 				05B0BBE714A9F3F1003C81B2 /* JSONKit.h in Headers */,
 				05B0BBE814A9F3F1003C81B2 /* BSReachability.h in Headers */,
+				0E653890158356380059FBA8 /* BSOpenUDID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +821,7 @@
 				055CBBE414A9D8D4009710F8 /* NSString+AFNetworking.m in Sources */,
 				055CBBE814A9D8EA009710F8 /* JSONKit.m in Sources */,
 				055CBBEC14A9D8FB009710F8 /* BSReachability.m in Sources */,
+				0E653891158356380059FBA8 /* BSOpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +852,7 @@
 				05B0BBCF14A9F37A003C81B2 /* NSString+AFNetworking.m in Sources */,
 				05B0BBD014A9F37A003C81B2 /* JSONKit.m in Sources */,
 				05B0BBD114A9F37A003C81B2 /* BSReachability.m in Sources */,
+				0E653892158356380059FBA8 /* BSOpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

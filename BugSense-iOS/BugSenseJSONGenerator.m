@@ -39,6 +39,7 @@
 #import "CrashReporter.h"
 #import "BSReachability.h"
 #import "BugSenseSymbolicator.h"
+#import "BSOpenUDID.h"
 #import "JSONKit.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -599,6 +600,9 @@
             }
         }
         
+        // --budid
+        [application_environment setObject:[BSOpenUDID value] forKey:@"budid"];
+        
         // root
         NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
         [rootDictionary setObject:application_environment forKey:@"application_environment"];
@@ -718,6 +722,9 @@
             [request setObject:userDictionary forKey:@"custom_data"];
             [request setObject:[NSString stringWithFormat:@"log-%@",tag] forKey:@"tag"];
         }
+        
+        // --budid
+        [application_environment setObject:[BSOpenUDID value] forKey:@"budid"];
         
         // root
         NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
