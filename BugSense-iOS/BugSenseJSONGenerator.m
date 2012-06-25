@@ -95,6 +95,9 @@
     }
 }
 
++ (NSString *) executableName {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleExecutable"];
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString *) applicationBuildNumberForReport:(PLCrashReport *)report {
@@ -590,7 +593,7 @@
                 
                 NSString *binary_filename = [arr objectAtIndex:6];
                 
-                if ([binary_filename isEqualToString:[self applicationName]]) {
+                if ([binary_filename isEqualToString:[self executableName]]) {
                     
                     [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageBaseAddress] forKey:@"image_base_address"];
                     [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageSize] forKey:@"image_size"];
