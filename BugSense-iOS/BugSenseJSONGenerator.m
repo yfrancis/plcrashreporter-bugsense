@@ -48,11 +48,12 @@
 
 #define kNoAddressStatus        @"Could not be found."
 #define kAppNameNotFoundStatus  @"App name not found."
+#define kProcessPathNotFoundStatus @"Process path not found."
 #define kCarrierNotFoundStatus  @"Carrier could not be determined."
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
 
-#define kBugSenseFrameworkVersion @"2.0.1"
+#define kBugSenseFrameworkVersion @"2.0.2"
 #define kBugSensePlatform @"iOS"
 
 @implementation BugSenseJSONGenerator
@@ -79,6 +80,14 @@
     }
 }
 
++ (NSString *) executableNameForReport:(PLCrashReport *)report {
+    NSArray *pathComponents = [report.processInfo.processPath componentsSeparatedByString:@"/"];
+    if (pathComponents && pathComponents.count > 0) {
+        return [pathComponents lastObject];
+    } else {
+        return kProcessPathNotFoundStatus;
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSString *) applicationName {
@@ -585,15 +594,18 @@
         [exception setObject:report.signalInfo.code forKey:@"signal_code"];
         [exception setObject:report.signalInfo.name forKey:@"signal_name"];
         
+        // --execname
+        [application_environment setObject:[self executableNameForReport:report] forKey:@"execname"];
+        
         // --image binary info
         for (PLCrashReportBinaryImageInfo *image in report.images) {
             NSArray *arr = [image.imageName componentsSeparatedByString:@"/"];
             
-            if (([arr count] > 6) && [image.imageName hasPrefix:@"/var"]) {
+            if (([arr count] > 0) && [image.imageName hasPrefix:@"/var"]) {
                 
-                NSString *binary_filename = [arr objectAtIndex:6];
+                NSString *binary_filename = [arr lastObject];
                 
-                if ([binary_filename isEqualToString:[self executableName]]) {
+                if ([binary_filename isEqualToString:[self executableNameForReport:report]]) {
                     
                     [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageBaseAddress] forKey:@"image_base_address"];
                     [application_environment setObject:[NSString stringWithFormat:@"0x%" PRIx64, image.imageSize] forKey:@"image_size"];
@@ -725,6 +737,9 @@
             [request setObject:userDictionary forKey:@"custom_data"];
             [request setObject:[NSString stringWithFormat:@"log-%@",tag] forKey:@"tag"];
         }
+        
+        // --execname
+        [application_environment setObject:[self executableName] forKey:@"execname"];
         
         // --budid
         [application_environment setObject:[BSOpenUDID value] forKey:@"budid"];
