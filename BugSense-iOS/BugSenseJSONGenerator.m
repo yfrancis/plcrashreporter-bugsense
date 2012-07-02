@@ -625,7 +625,8 @@
         [rootDictionary setObject:request forKey:@"request"];
         
         NSString *jsonString = 
-            [[rootDictionary bs_JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)[rootDictionary bs_JSONString],
+                                                NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8) autorelease];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
         NSLog(kJSONErrorMsg);
@@ -751,7 +752,8 @@
         [rootDictionary setObject:request forKey:@"request"];
         
         NSString *jsonString = 
-            [[rootDictionary bs_JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)[rootDictionary bs_JSONString],
+                                                NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8) autorelease];
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *jsonException) {
         NSLog(kJSONErrorMsg);
