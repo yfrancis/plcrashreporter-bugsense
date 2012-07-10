@@ -35,7 +35,7 @@
 
 #import "BugSenseDataDispatcher.h"
 
-#define BUGSENSE_REPORTING_SERVICE_URL  @"http://www.bugsense.com/api/errors"
+#define BUGSENSE_REPORTING_SERVICE_URL  @"https://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                 @"X-BugSense-Api-Key"
 
 #define kNoJSONGivenErrorMsg            @"BugSense --> No JSON data was given to post!"
