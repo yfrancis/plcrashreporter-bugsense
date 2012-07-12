@@ -53,7 +53,7 @@
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
 
-#define kBugSenseFrameworkVersion @"2.0.3"
+#define kBugSenseFrameworkVersion @"2.0.4"
 #define kBugSensePlatform @"iOS"
 
 @implementation BugSenseJSONGenerator

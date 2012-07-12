@@ -3,7 +3,7 @@
  BugSenseDataDispatcher.h
  BugSense-iOS
  
- Copyright (c) 2011 BugSense.com
+ Copyright (c) 2012 BugSense Inc.
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -27,6 +27,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  
  Author: Nick Toumpelis, nick@bugsense.com
+ Author: John Lianeris, jl@bugsense.com
  
  */
 
@@ -35,8 +36,9 @@
 
 #import "BugSenseDataDispatcher.h"
 
-#define BUGSENSE_REPORTING_SERVICE_URL  @"https://www.bugsense.com/api/errors"
-#define BUGSENSE_HEADER                 @"X-BugSense-Api-Key"
+#define BUGSENSE_REPORTING_SERVICE_URL          @"http://www.bugsense.com/api/errors"
+#define BUGSENSE_REPORTING_SERVICE_SECURE_URL   @"https://www.bugsense.com/api/errors"
+#define BUGSENSE_HEADER                         @"X-BugSense-Api-Key"
 
 #define kNoJSONGivenErrorMsg            @"BugSense --> No JSON data was given to post!"
 #define kServerRespondedMsg             @"BugSense --> Server responded with status code: %i"
@@ -57,7 +59,11 @@
         NSLog(kNoJSONGivenErrorMsg);
         return NO;
     } else {
-        NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
+        
+        NSString *reqSysVer = @"4.0";
+        NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+        NSURL *bugsenseURL = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending) ? [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_SECURE_URL] : [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
+                
         NSMutableURLRequest *bugsenseRequest = [[[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
             cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f] autorelease];
         [bugsenseRequest setHTTPMethod:@"POST"];
