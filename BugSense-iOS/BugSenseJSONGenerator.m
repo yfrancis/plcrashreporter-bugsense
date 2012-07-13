@@ -3,7 +3,7 @@
  BugSenseJSONGenerator.m
  BugSense-iOS
  
- Copyright (c) 2012 BugSense.com
+ Copyright (c) 2012 BugSense Inc.
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -52,6 +52,7 @@
 #define kCarrierNotFoundStatus  @"Carrier could not be determined."
 #define kGeneratingJSONDataMsg  @"BugSense --> Generating JSON data from crash report..."
 #define kJSONErrorMsg           @"BugSense --> Something unusual happened during the generation of JSON data!"
+#define kGeneratingProcessMsg   @"BugSense --> Generating JSON data from crash report: %d/14"
 
 #define kBugSenseFrameworkVersion @"2.0.4"
 #define kBugSensePlatform @"iOS"
@@ -408,13 +409,16 @@
                                         forKey:@"gps_on"];
         }
         
-        [application_environment setObject:[self carrierName] forKey:@"carrier"];
+        NSLog(kGeneratingProcessMsg, 1);
+              
+        if ([self carrierName])
+            [application_environment setObject:[self carrierName] forKey:@"carrier"];
         
         [application_environment setObject:[self languagesForReport:report] forKey:@"languages"];
-        
+
         // ----locale
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
-        
+
         // ----mobile_net_on, wifi_on
         BSReachability *reach = [BSReachability reachabilityForInternetConnection];
         NetworkStatus status = [reach currentReachabilityStatus];
@@ -432,6 +436,8 @@
                 [application_environment setObject:[NSNumber numberWithBool:NO] forKey:@"wifi_on"];
                 break;
         }
+        
+        NSLog(kGeneratingProcessMsg, 2);
         
         // ----osver
         [application_environment setObject:report.systemInfo.operatingSystemVersion forKey:@"osver"];
@@ -458,12 +464,16 @@
             }
         }
         
+        NSLog(kGeneratingProcessMsg, 3);
+        
         if (!crashedThreadInfo) {
             if (report.threads.count > 0) {
                 crashedThreadInfo = [report.threads objectAtIndex:0];
             }
         }
         
+        NSLog(kGeneratingProcessMsg, 4);
+
         NSMutableArray *stacktrace = [[[NSMutableArray alloc] init] autorelease];
         if (report.hasExceptionInfo) {
             PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
@@ -547,15 +557,21 @@
             }
         }
         
+        NSLog(kGeneratingProcessMsg, 5);
+        
         if (![exception objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
             [exception setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
         }
+
+        NSLog(kGeneratingProcessMsg, 6);
         
         if (stacktrace.count > 0) {
             [exception setObject:stacktrace forKey:@"backtrace"];
         } else {
             [exception setObject:@"No backtrace available [?]" forKey:@"backtrace"];
         }
+
+        NSLog(kGeneratingProcessMsg, 7);
         
         // ----klass, message
         if (report.hasExceptionInfo) {
@@ -566,6 +582,8 @@
             [exception setObject:report.signalInfo.name forKey:@"message"];
         }
         
+        NSLog(kGeneratingProcessMsg, 8);
+        
         // --request
         NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
         
@@ -574,6 +592,8 @@
         if (userDictionary) {
             [request setObject:userDictionary forKey:@"custom_data"];
         }
+        
+        NSLog(kGeneratingProcessMsg, 9);
         
         // --architecture
         NSArray *arch = [NSArray arrayWithObjects:@"x86_32", @"x86_64", @"armv6", @"ppc", @"ppc64", @"armv7", @"Unknown", nil];
@@ -590,12 +610,16 @@
             [exception setObject:[NSNumber numberWithInteger:crashedThreadInfo.threadNumber] forKey:@"thread_crashed"];
         }
         
+        NSLog(kGeneratingProcessMsg, 10);
+        
         // --signal
         [exception setObject:report.signalInfo.code forKey:@"signal_code"];
         [exception setObject:report.signalInfo.name forKey:@"signal_name"];
         
         // --execname
         [application_environment setObject:[self executableNameForReport:report] forKey:@"execname"];
+
+        NSLog(kGeneratingProcessMsg, 11);
         
         // --image binary info
         for (PLCrashReportBinaryImageInfo *image in report.images) {
@@ -615,8 +639,12 @@
             }
         }
         
+        NSLog(kGeneratingProcessMsg, 12);
+        
         // --budid
         [application_environment setObject:[BSOpenUDID value] forKey:@"budid"];
+        
+        NSLog(kGeneratingProcessMsg, 13);
         
         // root
         NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
@@ -627,6 +655,9 @@
         NSString *jsonString = 
         [(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)[rootDictionary bs_JSONString],
                                                 NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8) autorelease];
+
+        NSLog(kGeneratingProcessMsg, 14);
+        
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
         NSLog(kJSONErrorMsg);
