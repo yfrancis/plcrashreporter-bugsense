@@ -55,7 +55,7 @@
 #define kGeneratingProcessMsg   @"BugSense --> Generating JSON data from crash report: %d/14"
 #define kGeneratingProcessExceptionMsg   @"BugSense --> Generating JSON data from exception: %d/6"
 
-#define kBugSenseFrameworkVersion @"2.0.5"
+#define kBugSenseFrameworkVersion @"2.0.6"
 #define kBugSensePlatform @"iOS"
 
 @implementation BugSenseJSONGenerator

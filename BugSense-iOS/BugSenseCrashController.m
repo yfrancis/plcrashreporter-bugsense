@@ -3,7 +3,7 @@
  BugSenseCrashController.m
  BugSense-iOS
  
- Copyright (c) 2011 BugSense.com
+ Copyright (c) 2012 BugSense Inc.
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -27,6 +27,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  
  Author: Nick Toumpelis, nick@bugsense.com
+ Author: John Lianeris, jl@bugsense.com
  
  */
 
@@ -44,6 +45,7 @@
 #import "CrashReporter.h"
 #import "PLCrashReportTextFormatter.h"
 #import "NSMutableURLRequest+AFNetworking.h"
+#import "JSONKit.h"
 
 #define kLoadErrorString                @"BugSense --> Error: Could not load crash report data due to: %@"
 #define kParseErrorString               @"BugSense --> Error: Could not parse crash report due to: %@"
@@ -52,7 +54,19 @@
 #define kProcessingMsgString            @"BugSense --> Processing crash report..."
 #define kCrashMsgString                 @"BugSense --> Crashed on %@, with signal %@ (code %@, address=0x%" PRIx64 ")"
 #define kCrashReporterErrorString       @"BugSense --> Error: Could not enable crash reporting due to: %@"
+#define kNewVersionAlertMsgString       @"BugSense --> New version alert shown."
 
+#define kStandardUpdateTitle            NSLocalizedString(@"Update available", nil)
+#define kStandardUpdateAlertFormat      NSLocalizedString(@"There is an update for %@, that fixes the crash you've just\
+experienced. Do you want to get it from the App Store?", nil)
+#define kAppTitleString                 [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleDisplayName"]
+#define kCancelText                     NSLocalizedString(@"Cancel", nil)
+#define kOKText                         NSLocalizedString(@"Update", nil)
+
+#define kDataKey                        @"data"
+#define kContentTitleKey                @"contentTitle"
+#define kContentTextKey                 @"contentText"
+#define kURLKey                         @"url"
 
 #pragma mark - Private interface
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +102,8 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
     
     PLCrashReporter     *_crashReporter;
     PLCrashReport       *_crashReport;
+    
+    NSURL               *_storeLinkURL;
 }
 
 static BugSenseCrashController *_sharedCrashController = nil;
@@ -205,7 +221,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     }
     
     // Send the JSON string to the BugSense servers
-    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:nil];
+    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:nil showFeedback:NO];
     
     return YES;
 }
@@ -390,7 +406,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     }
     
     // Send the JSON string to the BugSense servers
-    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:self];
+    [BugSenseDataDispatcher postJSONData:jsonData withAPIKey:_APIKey delegate:self showFeedback:YES];
 }
 
 @end
@@ -398,14 +414,73 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
 
 @implementation BugSenseCrashController (Delegation)
 
-#pragma mark Delegate method (in category)
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void) operationCompleted:(BOOL)statusCodeAcceptable {
+- (void) showNewVersionAlertViewWithData:(NSData *)data {
+    if (data) {
+        id dataObject = [[[JSONDecoder decoder] objectWithData:data] objectForKey:kDataKey];
+        
+        // Keeping this for testing
+        /*
+         NSString *text = [NSString stringWithFormat:kStandardUpdateAlertFormat, kAppTitleString];
+         dataObject = [NSDictionary dictionaryWithObjectsAndKeys:kStandardUpdateTitle, kContentTitleKey, text, 
+         kContentTextKey, @"http://www.bugsense.com", kURLKey, nil];
+         */
+        
+        if ([dataObject isKindOfClass:[NSDictionary class]]) {
+            _storeLinkURL = [[NSURL URLWithString:(NSString *)[(NSDictionary *)dataObject objectForKey:kURLKey]] retain];
+            NSString *contentText = [(NSDictionary *)dataObject objectForKey:kContentTextKey];
+            NSString *contentTitle = [(NSDictionary *)dataObject objectForKey:kContentTitleKey];
+            
+            if (_storeLinkURL && contentText && contentTitle) {
+                UIAlertView *newVersionAlertView = [[[UIAlertView alloc] initWithTitle:contentTitle 
+                                                                               message:contentText 
+                                                                              delegate:self 
+                                                                     cancelButtonTitle:kCancelText 
+                                                                     otherButtonTitles:kOKText, nil] autorelease];
+                [newVersionAlertView show];
+                NSLog(kNewVersionAlertMsgString);
+            } else {
+                _operationCompleted = YES;
+            }
+        } else {
+            _operationCompleted = YES;
+        }
+    } else {
+        _operationCompleted = YES;
+    }
+}
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+            break;
+        case 1:
+            if (_storeLinkURL) {
+                [[UIApplication sharedApplication] openURL:_storeLinkURL];
+            }
+            [alertView dismissWithClickedButtonIndex:1 animated:YES];
+            break;
+        default:
+            break;
+    }
+    
+    _operationCompleted = YES;
+}
+
+#pragma mark - Delegate method (in category)
+- (void) operationCompleted:(BOOL)statusCodeAcceptable withData:(NSData *)data {
     if (statusCodeAcceptable) {
         [[self crashReporter] purgePendingCrashReport];
         [BugSenseSymbolicator clearSymbols];
+        
+        if (data) {
+            [self showNewVersionAlertViewWithData:data];
+        } else {
+            _operationCompleted = YES;
+        }
+    } else {
+        _operationCompleted = YES;
     }
-    _operationCompleted = YES;
 }
 
 @end

@@ -47,14 +47,13 @@
 
 @interface BugSenseCrashController (Delegation)
 
-- (void) operationCompleted:(BOOL)statusCodeAcceptable;
+- (void) operationCompleted:(BOOL)statusCodeAcceptable withData:(NSData *)data;
 
 @end
 
 @implementation BugSenseDataDispatcher
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (BOOL) postJSONData:(NSData *)jsonData withAPIKey:(NSString *)key delegate:(BugSenseCrashController *)delegate {
++ (BOOL) postJSONData:(NSData *)jsonData withAPIKey:(NSString *)key delegate:(BugSenseCrashController *)delegate showFeedback:(BOOL)feedbackOption{
     if (!jsonData) {
         NSLog(kNoJSONGivenErrorMsg);
         return NO;
@@ -80,10 +79,17 @@
                 NSLog(kServerRespondedMsg, response.statusCode);
                 if (error) {
                     NSLog(kErrorMsg, error);
+                    [delegate operationCompleted:NO withData:nil];
                 } else {
                     BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
                                                                           containsIndex:[response statusCode]];
-                    [delegate operationCompleted:statusCodeAcceptable];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (feedbackOption) {
+                            [delegate operationCompleted:statusCodeAcceptable withData:data];
+                        } else {
+                            [delegate operationCompleted:statusCodeAcceptable withData:nil];
+                        }
+                    });
                 }
         }];
         

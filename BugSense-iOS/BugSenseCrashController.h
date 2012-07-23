@@ -3,7 +3,7 @@
  BugSenseCrashController.h
  BugSense-iOS
  
- Copyright (c) 2011 BugSense.com
+ Copyright (c) 2012 BugSense Inc.
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -27,12 +27,13 @@
  OTHER DEALINGS IN THE SOFTWARE.
  
  Author: Nick Toumpelis, nick@bugsense.com
+ Author: John Lianeris, jl@bugsense.com
  
  */
 
 #define BUGSENSE_LOG(__EXCEPTION, __TAG) [BugSenseCrashController logException:__EXCEPTION withTag:__TAG]
 
-UIKIT_EXTERN @interface BugSenseCrashController : NSObject
+OBJC_EXPORT @interface BugSenseCrashController : NSObject <UIAlertViewDelegate>
 
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)APIKey;
 

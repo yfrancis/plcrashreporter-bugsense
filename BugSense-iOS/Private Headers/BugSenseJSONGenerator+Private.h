@@ -30,7 +30,7 @@
  
  */
 
-#define kBugSenseFrameworkVersion   @"2.0.5"
+#define kBugSenseFrameworkVersion   @"2.0.6"
 #define kBugSensePlatform           @"iOS"
 #define kAppNameNotFoundStatus      @"App name not found."
 
