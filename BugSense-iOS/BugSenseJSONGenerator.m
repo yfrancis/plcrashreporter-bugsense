@@ -563,6 +563,8 @@
         if (![exception objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
             [exception setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
         }
+        
+        [exception setObject:@"crash" forKey:@"rtype"];
 
         NSLog(kGeneratingProcessMsg, 6);
         
@@ -755,6 +757,8 @@
         if (![exceptionDict objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
             [exceptionDict setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
         }
+        
+        [exception setObject:@"exception" forKey:@"rtype"];
         
         if (stacktrace.count > 0) {
             [exceptionDict setObject:stacktrace forKey:@"backtrace"];
