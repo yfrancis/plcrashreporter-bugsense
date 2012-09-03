@@ -414,8 +414,6 @@
               
         if ([self carrierName])
             [application_environment setObject:[self carrierName] forKey:@"carrier"];
-        
-        [application_environment setObject:[self languagesForReport:report] forKey:@"languages"];
 
         // ----locale
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
@@ -708,8 +706,6 @@
         
         if ([self carrierName])
             [application_environment setObject:[self carrierName] forKey:@"carrier"];
-        
-        [application_environment setObject:[self languages] forKey:@"languages"];
         
         // ----locale
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
