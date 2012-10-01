@@ -1,0 +1,10 @@
+Package: com.bugsense.bugsense
+Name: BugSense Framework
+Depends: 
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Framework for in-process crash detection and reporting
+Maintainer: Youssef Francis
+Author: BugSense
+Section: System
+Tag: role::developer
