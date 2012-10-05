@@ -16,4 +16,4 @@ BugSense_CFLAGS  += -ISupport/AFNetworking \
 				    -ISupport/OpenUDID \
 				    -ISupport/Reachability
 
-include $(THEOS_MAKE_PATH)/library.mk
+include $(THEOS_MAKE_PATH)/framework.mk
