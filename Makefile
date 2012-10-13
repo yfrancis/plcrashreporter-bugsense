@@ -17,12 +17,12 @@ BugSense_CFLAGS  += -ISupport/AFNetworking \
 				    -ISupport/Reachability
 
 # Do nothing on stage, we really just want the object files for linking
-_THEOS_STAGING_RULES_LOADED := 1
-_THEOS_PACKAGE_RULES_LOADED := 1
-stage: ;
-package: ;
+override _THEOS_STAGING_RULES_LOADED := 1
 
 include $(THEOS_MAKE_PATH)/framework.mk
+
+BugSense.stage.framework.variables: ;
+internal-stage:: ;
 
 # Set the paths for the framework stub
 PRODUCT_PATH_ = .products
